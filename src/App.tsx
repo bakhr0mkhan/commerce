@@ -1,12 +1,15 @@
 import React, {useEffect} from 'react';
-import Commerce from '@chec/commerce.js';
 
-const commerce = new Commerce(process.env.REACT_APP_COMMERCEJS_PUBLIC_KEY);
+import {useCommerceContext} from './context'
+
+
+
 
 
 const  App = () =>  {
+  const {cart } = useCommerceContext()
   useEffect(() => {
-    console.log(commerce)
+    console.log(cart)
   }, [])
 
 
