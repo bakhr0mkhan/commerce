@@ -4,7 +4,7 @@ import Commerce from '@chec/commerce.js';
 
 const CommerceContext = createContext()
 
-const index = (props) => {
+const Context = (props) => {
     const commerce = new Commerce(process.env.REACT_APP_COMMERCEJS_PUBLIC_KEY);
     const {cart, products, categories } = commerce
 
@@ -18,7 +18,7 @@ const index = (props) => {
     )
 }
 
-export default index
+export default Context
 export const useCommerceContext = () => useContext(CommerceContext)
 
 
