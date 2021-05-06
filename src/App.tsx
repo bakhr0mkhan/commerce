@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 
-import{ Dashboard, Cart }from './screens'
+import{ Dashboard, Cart }from './screens/index.tsx'
 
 
 

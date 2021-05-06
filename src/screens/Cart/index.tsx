@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 
 
-import {Header } from '../../components'
+import {Header } from '../../components/index.tsx'
 
 const Cart = () => {
     // const location = useLocation()

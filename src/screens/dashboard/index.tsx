@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useCommerceContext } from "../../context";
+import { useCommerceContext } from "../../context/index.tsx";
 
 
 
-import {Header } from '../../components'
+import {Header } from '../../components/index.tsx'
 import './styles.css'
 
 const Dashboard = () => {
@@ -37,7 +37,7 @@ const Dashboard = () => {
 			<Header/>
 			<div className="mainCon">
 				<div className="leftCon">
-					<div className=""><p className="heading3">Categories</p></div>
+					<div className=""><p className="heading3">Explore</p></div>
 					<div className="categoriesCon">
 					{
 						categories?.map((category) => <button key={category.name} className="categoryName">{category.name}</button>)
@@ -45,7 +45,7 @@ const Dashboard = () => {
 					</div>
 				</div>
 				<div className="rightCon">
-					<div className=""><p className="heading3">Explore</p></div>
+					<div className=""><p className="heading3">Category</p></div>
 					{/* <div className="categoriesCon">
 					{
 						categories?.map((category) => <button key={category.name} className="categoryName">{category.name}</button>)
