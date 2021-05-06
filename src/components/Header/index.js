@@ -9,8 +9,6 @@ import "./styles.css"
 const Header = () => {
 
     const location = useLocation()
-    console.log(location.pathname)
-
 
     if(location.pathname === '/cart'){
         return(

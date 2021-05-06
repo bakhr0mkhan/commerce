@@ -1,6 +1,47 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .container{
     margin: 0;
     padding: 0;
-    width: 100vw;
+    /* width: 100vw;
+    height: 100vh; */
     height: 100vh;
+}
+
+.container{
+
+}
+.mainCon{
+    display: flex;
+    flex-direction: row;
+
+}
+.leftCon{
+    flex: 1;
+    padding: 0 2rem
+}
+.categoryName{
+    text-transform: capitalize;
+    font-size: 17px;
+    font-weight: normal;
+    font-family: "Quicksand", sans-serif;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    background-color: transparent;
+    padding: 1rem 0;
+}
+.rightCon{
+    flex: 4
+
+}
+.heading3{
+    font-family: 'Fredoka One', cursive;
+    font-size: 24px;
 }
