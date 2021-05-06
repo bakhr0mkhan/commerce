@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 
 
@@ -10,7 +10,6 @@ import {
 } from "react-router-dom";
 
 
-import {useCommerceContext} from './context'
 import{ Dashboard, Cart }from './screens'
 
 

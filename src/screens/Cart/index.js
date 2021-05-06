@@ -1,9 +1,18 @@
-import React from 'react'
+import React,{useEffect} from 'react'
+
+
+import {Header } from '../../components'
 
 const Cart = () => {
+    // const location = useLocation()
+    // useEffect(()=>{
+    //     console.log(location.pathname)
+    // }, [location])
+
+
     return (
         <div>
-            this is the cart
+            <Header/>
         </div>
     )
 }

@@ -1,0 +1,73 @@
+.headerContainer{
+    display: flex;
+    flex-direction :row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid black;
+}
+.brandContainer{
+    flex: 1;
+    height: 100%;
+
+}
+.rightContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    margin: 0;
+    padding: 0 4rem;
+}
+.brandContainer{
+    padding: 0 2rem;
+}
+
+.brandName{
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.cartIconContainer{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+.authContainer{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.cartButton{
+    border-radius: 0.7rem;
+    padding: 0.5rem ;
+    border: none;
+    outline: none;
+    background-color: white;
+}
+.cartIcon{
+    color: black;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.authButton{
+    border-radius: 1rem;
+    border: 0.5px solid gray;
+    text-align: center;
+    margin: auto;
+    padding: 0.5rem 1rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    background-color: white;
+}

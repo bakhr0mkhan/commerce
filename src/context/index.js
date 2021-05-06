@@ -1,15 +1,14 @@
-import React, {createContext, useContext, useEffect, useState} from 'react'
+import React, {createContext, useContext} from 'react'
 import Commerce from '@chec/commerce.js';
 
 
 const CommerceContext = createContext()
 
 const Context = (props) => {
-    const commerce = new Commerce(process.env.REACT_APP_COMMERCEJS_PUBLIC_KEY);
-    const {cart, products, categories } = commerce
+    const commerce = new Commerce(process.env.REACT_APP_COMMERCEJS_PUBLIC_KEY, true);
 
     const value = {
-        cart, products, categories
+        commerce
     }
     return (
         <CommerceContext.Provider value={value}>
