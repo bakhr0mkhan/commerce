@@ -35,13 +35,113 @@ html, body{
     outline: none;
     text-align: left;
     background-color: transparent;
-    padding: 1rem 0;
+    padding: 0.8rem 0;
 }
 .rightCon{
-    flex: 4
+    flex: 5
 
 }
 .heading3{
     font-family: 'Fredoka One', cursive;
     font-size: 24px;
+}
+
+.btnIcon{
+    width: 20px ;
+    height: 20px;
+}
+.categorySingleCon{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.categoryHeaderCon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding : 0  3rem 0 0;
+}
+
+.filterBtn{
+    border-radius: 0.3rem;
+    border: 0.5px solid gray;
+    text-align: center;
+    margin: auto;
+    padding: 0.5rem 1rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    background-color: white;
+}
+
+.subContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.catIcon{
+    width: 25px;
+    height: 25px;
+}
+.prodsCon{
+    display: flex;
+    flex-direction :row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap : wrap;
+}
+.prodCon{
+    border: 1px solid lightgray;
+    height: 30vh;
+    width: 18vw;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.prodImg{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    /* border-radius: 1.7rem; */
+}
+
+.prodImgCon{
+    margin: 0;
+    padding: 0;
+    height: 80%;
+    width: 100%;
+}
+.prodInfoCon{
+    margin: auto;
+    padding:  0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+.prodName{
+    font-family: "Quicksand", sans-serif;
+
+}
+.prodPrice{
+    /* font-family: "Quicksand", sans-serif; */
+}
+
+.prodNameContainer{
+
+}
+.addToCartCon{
+    margin : 0 1rem;
+    border: none ;
+    background-color: white;
+    outline: none;
+}
+.addToCartIcon{
+    width: 1.4rem;
+    height: 1.4rem;
 }

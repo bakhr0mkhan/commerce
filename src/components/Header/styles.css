@@ -51,8 +51,20 @@
     border-radius: 0.7rem;
     padding: 0.5rem ;
     border: none;
-    outline: none;
     background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    outline: none;
+    text-decoration: none;
+
+}
+.cartLength{
+    font-family: "Quicksand", sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    text-decoration: none;
+    margin-left: 0.5rem;
 }
 .cartIcon{
     color: black;
@@ -70,4 +82,13 @@
     font-weight: 700;
     font-size: 1rem;
     background-color: white;
+}
+
+.link{
+    text-decoration: none;
+    color: black;
+}
+
+.link:visited{
+    color: black;
 }
