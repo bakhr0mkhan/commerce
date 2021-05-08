@@ -26,12 +26,12 @@ const Dashboard = () => {
 				console.log("There was an error fetching the products", error);
 			});
 	};
-	const fetchCategories = async () => {
-		await commerce.categories
-			.list()
-			.then((categories) => setCategories(categories.data))
-			.catch((err) => console.log("error ", err));
-	};
+	// const fetchCategories = async () => {
+	// 	await commerce.categories
+	// 		.list()
+	// 		.then((categories) => setCategories(categories.data))
+	// 		.catch((err) => console.log("error ", err));
+	// };
 
 	const addToCart = async (productId) => {
 		await commerce.cart.add(productId, 1)
@@ -44,15 +44,36 @@ const Dashboard = () => {
 
 
 	useEffect(() => {
-		fetchCategories();
+		// fetchCategories();
 		fetchProducts();
 		return 
 	}, []);
+
 	useEffect(() => {
-		console.log("cats", categories);
+		// console.log("cats", categories);
 		console.log("prods", products);
 		return
-	}, [categories, products]);
+	}, [ products]);
+
+	useEffect(()=>{
+		categoryChangeProducts()
+	},[selectedCategory])
+
+	const categoryChangeProducts = async () => {
+		await commerce.products
+		.list({
+			category_slug: [`${selectedCategory.slug}`],
+		  })
+		.then((products) => {
+			if(!products.data){
+				fetchProducts()
+			}
+			setProducts(products.data)
+		})
+		.catch((error) => {
+			console.log("There was an error fetching the products", error);
+		});
+	}
 
 	return (
 		<div className="container">
