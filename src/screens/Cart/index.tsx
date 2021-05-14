@@ -1,23 +1,32 @@
 import React,{useEffect, useState} from 'react'
-
+import Lottie from "react-lottie";
 
 import { useCommerceContext } from "../../context/index.tsx";
 import {Header } from '../../components/index.tsx'
 import './styles.css'
 import {FaCartPlus} from "react-icons/fa";
+import cartLoading  from "../../assets/animations/cartLoading.json";
 
 const Cart = () => {
 	const { commerce } = useCommerceContext();
     const [cart, setCart] = useState()
+    const [loading , setLoading] = useState(false)
 
     const retrieveCart = async () => {
-        await commerce.cart.retrieve()
-        .then((cart) => {
-            setCart(cart.line_items)
-            // console.log(cart.line_items)
-        })
-        // .then((cart) => console.log(cart.line_items))
-        .catch(err => console.log('error ', err))
+        setLoading(true)
+        try {
+            await commerce.cart.retrieve()
+                .then((cart) => {
+                    setCart(cart.line_items)
+                    // console.log(cart.line_items)
+                    setLoading(false)
+                })
+        }catch(err){
+            console.log(err)
+        }
+        finally {
+            setLoading(false)
+        }
     }
 
     const emptyCart = async () => {
@@ -50,6 +59,25 @@ const Cart = () => {
         retrieveCart()
     }, [cart])
 
+
+    if (loading) {
+        return (
+            <Lottie
+                options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: cartLoading,
+                    rendererSettings: {
+                        preserveAspectRatio: "xMidYMid slice",
+                    },
+                }}
+                height={400}
+                width={400}
+                isStopped={false}
+                isPaused={false}
+            />
+        );
+    }
 
 
     return (

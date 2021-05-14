@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useCommerceContext } from '../../context/index.tsx';
+import React, { useEffect, useState } from "react";
+import Lottie from "react-lottie";
+import { FaCartPlus } from "react-icons/fa";
 
-import { Header } from '../../components/index.tsx';
-import './styles.css';
-import { FaCartPlus } from 'react-icons/fa';
-
-import { localCategories } from '../../assets/data/index.ts';
+import { useCommerceContext } from "../../context/index.tsx";
+import { Header } from "../../components/index.tsx";
+import "./styles.css";
+import { localCategories } from "../../assets/data/index.ts";
+import commerceLoading from "../../assets/animations/commerceLoading.json";
 
 const Dashboard = () => {
 	const { commerce } = useCommerceContext();
@@ -22,7 +23,7 @@ const Dashboard = () => {
 				setProducts(products.data);
 			});
 		} catch (err) {
-			console.log('THere was an error fetching the products ', err);
+			console.log("THere was an error fetching the products ", err);
 		} finally {
 			setLoading(false);
 		}
@@ -30,10 +31,8 @@ const Dashboard = () => {
 	const addToCart = async (productId) => {
 		await commerce.cart
 			.add(productId, 1)
-			.then((response) => {
-				console.log('added');
-			})
-			.catch((err) => console.log('err happended', err));
+			.then((res) => res)
+			.catch((err) => console.log("err happended", err));
 	};
 
 	useEffect(() => {
@@ -41,16 +40,17 @@ const Dashboard = () => {
 		return;
 	}, []);
 
-	useEffect(() => {
-		console.log('prods', products);
-		return;
-	}, [products]);
+	// useEffect(() => {
+	// 	console.log("prods", products);
+	// 	return;
+	// }, [products]);
 
 	useEffect(() => {
 		categoryChangeProducts();
 	}, [selectedCategory]);
 
 	const categoryChangeProducts = async () => {
+		setLoading(true)
 		try {
 			await commerce.products
 				.list({
@@ -63,11 +63,30 @@ const Dashboard = () => {
 					setProducts(products.data);
 				});
 		} catch (err) {
-			console.log('There was an error while fetching products', err);
+			console.log("There was an error while fetching products", err);
 		} finally {
 			setLoading(false);
 		}
 	};
+
+	if (loading) {
+		return (
+			<Lottie
+				options={{
+					loop: true,
+					autoplay: true,
+					animationData: commerceLoading,
+					rendererSettings: {
+						preserveAspectRatio: "xMidYMid slice",
+					},
+				}}
+				height={400}
+				width={400}
+				isStopped={false}
+				isPaused={false}
+			/>
+		);
+	}
 
 	return (
 		<div className="container">
@@ -85,8 +104,8 @@ const Dashboard = () => {
 								style={{
 									backgroundColor:
 										category.name === selectedCategory.name
-											? '#ebfaef'
-											: 'white',
+											? "#ebfaef"
+											: "white",
 								}}
 								onClick={() => setSelectedCategory(category)}
 							>
