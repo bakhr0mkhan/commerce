@@ -1,16 +1,77 @@
 import React,{useEffect, useState} from 'react'
 import Lottie from "react-lottie";
 
-import { useCommerceContext } from "../../context/index.tsx";
+import firebase from 'firebase/app'
+
+
+
+import {signInWithGoogle} from '../../firebase/index'
+
+
+
+import { useCommerceContext, useFirebaseContext } from "../../context/index.tsx";
 import {Header } from '../../components/index.tsx'
 import './styles.css'
 import {FaCartPlus} from "react-icons/fa";
 import cartLoading  from "../../assets/animations/cartLoading.json";
+import {sign} from "node:crypto";
 
 const Cart = () => {
 	const { commerce } = useCommerceContext();
+	const {currentUser} = useFirebaseContext()
+
+    const auth = firebase.auth()
+
     const [cart, setCart] = useState()
     const [loading , setLoading] = useState(false)
+
+
+    useEffect(()=>{
+        // retrieveCart()
+        // app.initializeApp(firebaseConfig);
+        console.log('User is ',currentUser)
+    }, [])
+    useEffect(()=>{
+        retrieveCart()
+    }, [cart])
+    useEffect(()=>{
+        console.log('user is changed', currentUser)
+    }, [currentUser])
+
+    const createUserWithEmail = async () => {
+        await auth.createUserWithEmailAndPassword('email322323@mail.ru', 'passoIjfoJojfoosOJ')
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                console.log('newly created user', user)
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage)
+            });
+    }
+
+    const signInWithEmail = async () => {
+	    await auth.signInWithEmailAndPassword('email322323@mail.ru','passoIjfoJojfoosOJ' )
+            .then(userSigned => console.log('successfull sign in ',userSigned))
+            .catch( err => console.log('could not sign in', err))
+    }
+
+    const signOut = async () => {
+	    await auth.signOut()
+            .then(res => console.log('signed out' , res))
+            .catch(err => console.log("could not sign out", err))
+    }
+
+    const signInWithFacebook = async () => {
+        const providerFb = new firebase.auth.FacebookAuthProvider();
+	    await auth.signInWithPopup(providerFb)
+            .then(res => console.log('s singin fb', res))
+            .catch(err => console.log("error ", err))
+    }
+
 
     const retrieveCart = async () => {
         setLoading(true)
@@ -50,14 +111,6 @@ const Cart = () => {
             .then(res => res)
             .catch(err => console.log('could not decrease'))
     }
-
-
-    useEffect(()=>{
-        retrieveCart()
-    }, [])
-    useEffect(()=>{
-        retrieveCart()
-    }, [cart])
 
 
     if (loading) {
@@ -125,6 +178,31 @@ const Cart = () => {
                 onClick={()=>emptyCart()}
             >
             empty the cart
+            </button>
+            <button
+                onClick={()=>signInWithGoogle()}
+            >
+            SIgn in with google
+            </button>
+            <button
+                onClick={()=>signInWithFacebook()}
+            >
+            SIgn in with fb
+            </button>
+            <button
+                onClick={()=>createUserWithEmail()}
+            >
+            SIgn up
+            </button>
+            <button
+                onClick={()=>signInWithEmail()}
+            >
+            SIgn in
+            </button>
+            <button
+                onClick={()=>signOut()}
+            >
+            SIgn out
             </button>
 
         </div>
