@@ -2,9 +2,6 @@ import React,{useEffect, useState} from 'react'
 
 
 import { useCommerceContext } from "../../context/index.tsx";
-
-
-
 import {Header } from '../../components/index.tsx'
 
 const Cart = () => {
@@ -13,7 +10,8 @@ const Cart = () => {
 
     const retrieveCart = async () => {
         await commerce.cart.retrieve()
-        .then((cart) => setCart(cart.line_items))
+        // .then((cart) => setCart(cart.line_items))
+        .then((cart) => console.log(cart.line_items))
         .catch(err => console.log('error ', err))
     }
 
@@ -22,9 +20,16 @@ const Cart = () => {
         .then((res) => setCart(res.cart.line_items))
         .catch(err => console.log(err))
     }
+    const removeFromCart = async (prodId) => {
+        await commerce.cart.remove(prodId)
+            .then((res) => console.log('successfully removed',res))
+            .catch(err => console.log('could not remove',err))
+    }
+
     useEffect(()=>{
         retrieveCart()
     }, [])
+
 
 
     return (
@@ -43,6 +48,11 @@ const Cart = () => {
                 onClick={()=>emptyCart()}
             >
             empty the cart
+            </button>
+            <button
+                onClick={()=>removeFromCart()}
+            >
+            remove from cart
             </button>
         </div>
     )

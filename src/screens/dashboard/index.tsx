@@ -1,79 +1,73 @@
-import React, { useEffect, useState } from "react";
-import { useCommerceContext } from "../../context/index.tsx";
+import React, { useEffect, useState } from 'react';
+import { useCommerceContext } from '../../context/index.tsx';
 
-import { Header } from "../../components/index.tsx";
-import "./styles.css";
-import { FaCartPlus } from "react-icons/fa";
+import { Header } from '../../components/index.tsx';
+import './styles.css';
+import { FaCartPlus } from 'react-icons/fa';
 
-import { localCategories } from "../../assets/data/index.ts";
+import { localCategories } from '../../assets/data/index.ts';
 
 const Dashboard = () => {
 	const { commerce } = useCommerceContext();
 
 	const [categories, setCategories] = useState();
 	const [products, setProducts] = useState();
-	const [selectedCategory, setSelectedCategory] = useState(
-		localCategories[0]
-	);
+	const [selectedCategory, setSelectedCategory] = useState(localCategories[0]);
+	const [loading, setLoading] = useState(false);
 
-	const fetchProducts = () => {
-		commerce.products
-			.list()
-			.then((products) => {
+	const fetchProducts = async () => {
+		setLoading(true);
+		try {
+			await commerce.products.list().then((products) => {
 				setProducts(products.data);
-			})
-			.catch((error) => {
-				console.log("There was an error fetching the products", error);
 			});
+		} catch (err) {
+			console.log('THere was an error fetching the products ', err);
+		} finally {
+			setLoading(false);
+		}
 	};
-	// const fetchCategories = async () => {
-	// 	await commerce.categories
-	// 		.list()
-	// 		.then((categories) => setCategories(categories.data))
-	// 		.catch((err) => console.log("error ", err));
-	// };
-
 	const addToCart = async (productId) => {
-		await commerce.cart.add(productId, 1)
-		.then((response) => {
-			console.log('added')
+		await commerce.cart
+			.add(productId, 1)
+			.then((response) => {
+				console.log('added');
 			})
-		.catch(err => console.log('err happended' , err))
-	}
-
-
+			.catch((err) => console.log('err happended', err));
+	};
 
 	useEffect(() => {
-		// fetchCategories();
 		fetchProducts();
-		return 
+		return;
 	}, []);
 
 	useEffect(() => {
-		// console.log("cats", categories);
-		console.log("prods", products);
-		return
-	}, [ products]);
+		console.log('prods', products);
+		return;
+	}, [products]);
 
-	useEffect(()=>{
-		categoryChangeProducts()
-	},[selectedCategory])
+	useEffect(() => {
+		categoryChangeProducts();
+	}, [selectedCategory]);
 
 	const categoryChangeProducts = async () => {
-		await commerce.products
-		.list({
-			category_slug: [`${selectedCategory.slug}`],
-		  })
-		.then((products) => {
-			if(!products.data){
-				fetchProducts()
-			}
-			setProducts(products.data)
-		})
-		.catch((error) => {
-			console.log("There was an error fetching the products", error);
-		});
-	}
+		try {
+			await commerce.products
+				.list({
+					category_slug: [`${selectedCategory.slug}`],
+				})
+				.then((products) => {
+					if (!products.data) {
+						fetchProducts();
+					}
+					setProducts(products.data);
+				});
+		} catch (err) {
+			console.log('There was an error while fetching products', err);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	return (
 		<div className="container">
@@ -91,22 +85,16 @@ const Dashboard = () => {
 								style={{
 									backgroundColor:
 										category.name === selectedCategory.name
-											? "#ebfaef"
-											: "white",
+											? '#ebfaef'
+											: 'white',
 								}}
 								onClick={() => setSelectedCategory(category)}
 							>
 								<div className="categoryIconCon">
-									<img
-										src={category.icon}
-										className="btnIcon"
-										alt="Icon"
-									/>
+									<img src={category.icon} className="btnIcon" alt="Icon" />
 								</div>
 								<div className="categoryNameCon">
-									<button className="categoryName">
-										{category.name}
-									</button>
+									<button className="categoryName">{category.name}</button>
 								</div>
 							</div>
 						))}
@@ -123,9 +111,7 @@ const Dashboard = () => {
 								/>
 							</div>
 							<div>
-								<p className="heading3">
-									{selectedCategory.name}
-								</p>
+								<p className="heading3">{selectedCategory.name}</p>
 							</div>
 						</div>
 						<div>
@@ -139,17 +125,15 @@ const Dashboard = () => {
 						{products?.map((prod) => (
 							<div key={prod.id} className="prodCon">
 								<div className="prodImgCon">
-									<img
-										src={prod.media.source}
-										className="prodImg"
-									/>
+									<img src={prod.media.source} className="prodImg" />
 								</div>
 								<div className="prodInfoCon">
 									<div className="prodNameContainer">
-										<p className="prodName">{prod.name.slice(0,18)}...</p>
+										<p className="prodName">{prod.name.slice(0, 18)}...</p>
 									</div>
-									<button className="addToCartCon"
-										onClick={()=> addToCart(prod.id)}
+									<button
+										className="addToCartCon"
+										onClick={() => addToCart(prod.id)}
 									>
 										<FaCartPlus className="addToCartIcon" />
 									</button>
