@@ -3,6 +3,8 @@ import React,{useEffect, useState} from 'react'
 
 import { useCommerceContext } from "../../context/index.tsx";
 import {Header } from '../../components/index.tsx'
+import './styles.css'
+import {FaCartPlus} from "react-icons/fa";
 
 const Cart = () => {
 	const { commerce } = useCommerceContext();
@@ -10,8 +12,11 @@ const Cart = () => {
 
     const retrieveCart = async () => {
         await commerce.cart.retrieve()
-        // .then((cart) => setCart(cart.line_items))
-        .then((cart) => console.log(cart.line_items))
+        .then((cart) => {
+            setCart(cart.line_items)
+            // console.log(cart.line_items)
+        })
+        // .then((cart) => console.log(cart.line_items))
         .catch(err => console.log('error ', err))
     }
 
@@ -26,34 +31,74 @@ const Cart = () => {
             .catch(err => console.log('could not remove',err))
     }
 
+    const decreaseQuantity = async  (prodId, quantity) => {
+        await commerce.cart.update(prodId, {quantity: quantity})
+            .then(res => res)
+            .catch(err => console.log('could not decrease'))
+    }
+    const increaseQuantity = async  (prodId, quantity) => {
+        await commerce.cart.update(prodId, {quantity: quantity})
+            .then(res => res)
+            .catch(err => console.log('could not decrease'))
+    }
+
+
     useEffect(()=>{
         retrieveCart()
     }, [])
+    useEffect(()=>{
+        retrieveCart()
+    }, [cart])
 
 
 
     return (
         <div>
             <Header emptyCart={emptyCart}/>
-            <div>
-            {
-                cart?.map(prod => (
-                    <div key={prod.id}>
-                    {prod.name}
+            <div className="prodsCon">
+                {cart?.map((prod) => (
+                    <div key={prod.id} className="prodCon">
+                        <div className="prodImgCon">
+                            <img src={prod.media.source} className="prodImg" />
+                        </div>
+                        <div className="prodInfoCon">
+                            <div className="prodNameContainer">
+                                <p className="prodName">{prod.quantity}...</p>
+                                {/*<p className="prodName">{prod.name.slice(0, 18)}...</p>*/}
+                            </div>
+                            <button
+                                className="addToCartCon"
+                                onClick={() => removeFromCart(prod.id)}
+                            >
+                                <FaCartPlus className="addToCartIcon" />
+                            </button>
+                        </div>
+                        <div>
+                            <div>
+                                <button
+                                    onClick={()=>decreaseQuantity(prod.id, prod.quantity - 1)}
+                                >
+                                    -
+                                </button>
+                            </div>
+                            <div>
+                                <button
+                                    onClick={()=>increaseQuantity(prod.id, prod.quantity + 1)}
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
-                ))
-            }
+                ))}
             </div>
             <button
                 onClick={()=>emptyCart()}
             >
             empty the cart
             </button>
-            <button
-                onClick={()=>removeFromCart()}
-            >
-            remove from cart
-            </button>
+
         </div>
     )
 }
