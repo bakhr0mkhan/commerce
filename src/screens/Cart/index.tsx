@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Lottie from "react-lottie";
-
+//@ts-ignore
+import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
 
 import { useCommerceContext, useFirebaseContext } from "../../context/index";
@@ -8,11 +9,13 @@ import { Header } from "../../components/index";
 import "./styles.css";
 import { FaCartPlus } from "react-icons/fa";
 import cartLoading from "../../assets/animations/cartLoading.json";
-import { CartResponse } from "../../types/index";
+import emptyCartAnimation from "../../assets/animations/emptyCart.json";
+import spinner from "../../assets/animations/spinner.json";
 
 const Cart = () => {
   // @ts-ignore
   const { commerce } = useCommerceContext();
+  const history = useHistory();
   // @ts-ignore
   const { currentUser } = useFirebaseContext();
 
@@ -20,30 +23,50 @@ const Cart = () => {
 
   const [cart, setCart] = useState();
   const [loading, setLoading] = useState(true);
+  const [emptyCartArray, setEmptyCartArray] = useState(false);
+  const [subtotal, setSubtotal] = useState<number | string>();
 
-  useEffect(() => {
-    // retrieveCart()
-    // app.initializeApp(firebaseConfig);
-    // console.log('User is ',currentUser)
-  }, []);
   useEffect(() => {
     retrieveCart();
-  }, [cart]);
+    console.log("api key", process.env.REACT_APP_API_KEY);
+  }, []);
+  //   useEffect(() => {
+  //     retrieveCart();
+  //   }, [cart]);
 
-  const signInWithFacebook = async () => {
-    const providerFb = new firebase.auth.FacebookAuthProvider();
-    await auth
-      .signInWithPopup(providerFb)
-      .then((res) => console.log("s singin fb", res))
-      .catch((err) => console.log("error ", err));
+  const generateToken = async () => {
+    try {
+      await commerce.checkout
+        .generateToken("white-shirt", { type: "permalink" })
+        .then((checkout: any) => console.log("checkout ", checkout.id));
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+    }
+  };
+
+  const refreshCart = async () => {
+    setLoading(true);
+    try {
+      await commerce.cart
+        .refresh()
+        .then((cart: any) => console.log("cart refreshed ", cart));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const retrieveCart = async () => {
     try {
       // setLoading(true)
       await commerce.cart
-        .retrieve<CartResponse>()
+        .retrieve()
         .then((cart: { line_items: React.SetStateAction<undefined> }) => {
+          console.log("cart ", cart);
+          //@ts-ignore
+          setSubtotal(cart?.subtotal.formatted_with_symbol);
           setCart(cart.line_items);
         });
     } catch (err) {
@@ -64,26 +87,44 @@ const Cart = () => {
   const removeFromCart = async (
     prodId: React.Key | string | null | undefined
   ) => {
-    await commerce.cart
-      .remove(prodId)
-      .then((res: any) => console.log("successfully removed", res))
-      .catch((err: any) => console.log("could not remove", err));
+    try {
+      await commerce.cart
+        .remove(prodId)
+        .then((res: any) => console.log("successfully removed", res))
+        .catch((err: any) => console.log("could not remove", err));
+    } catch (err: any) {
+      console.log(err);
+    } finally {
+      retrieveCart();
+    }
   };
 
   const decreaseQuantity = async (
     prodId: React.Key | string | null | undefined,
     quantity: number
   ) => {
-    await commerce.cart
-      .update(prodId, { quantity: quantity })
-      .then((res: any) => res)
-      .catch((err: any) => console.log("could not decrease", err));
+    try {
+      await commerce.cart
+        .update(prodId, { quantity: quantity })
+        .then((res: any) => console.log(res))
+        .catch((err: any) => console.log("could not decrease", err));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      retrieveCart();
+    }
   };
   const increaseQuantity = async (prodId: string, quantity: number) => {
-    await commerce.cart
-      .update(prodId, { quantity: quantity })
-      .then((res: any) => res)
-      .catch((err: any) => console.log("could not decrease", err));
+    try {
+      await commerce.cart
+        .update(prodId, { quantity: quantity })
+        .then((res: any) => console.log(res))
+        .catch((err: any) => console.log("could not decrease", err));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      retrieveCart();
+    }
   };
 
   if (loading) {
@@ -92,7 +133,7 @@ const Cart = () => {
         options={{
           loop: true,
           autoplay: true,
-          animationData: cartLoading,
+          animationData: spinner,
           rendererSettings: {
             preserveAspectRatio: "xMidYMid slice",
           },
@@ -105,6 +146,36 @@ const Cart = () => {
     );
   }
 
+  if (emptyCartArray) {
+    return (
+      <div
+        className="containerFluid"
+        style={{
+          width: "100%",
+          height: "100vh",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Lottie
+          options={{
+            loop: false,
+            autoplay: true,
+            animationData: emptyCartAnimation,
+            rendererSettings: {
+              preserveAspectRatio: "xMidYMid slice",
+            },
+          }}
+          height={400}
+          width={400}
+          isStopped={false}
+          isPaused={false}
+        />
+      </div>
+    );
+  }
+
   // @ts-ignore
   // @ts-ignore
   // @ts-ignore
@@ -112,11 +183,12 @@ const Cart = () => {
     <div>
       <Header emptyCart={emptyCart} />
       <div className="prodsCon">
+        {/* @ts-ignore */}
         {cart?.map(
           (prod: {
-            id: React.Key | null | undefined;
+            id: string;
             media: { source: string | undefined };
-            quantity: {} | null | number;
+            quantity: number;
           }) => (
             <div key={prod.id} className="prodCon">
               <div className="prodImgCon">
@@ -153,12 +225,10 @@ const Cart = () => {
             </div>
           )
         )}
+        <button onClick={() => refreshCart()}>REfresh cart</button>
+        {subtotal && <p>Total : {subtotal}</p>}
+        <button onClick={() => generateToken()}>Go checkout </button>
       </div>
-      <button onClick={() => emptyCart()}>empty the cart</button>
-
-      <button onClick={() => createUserWithEmail()}>SIgn up</button>
-      <button onClick={() => signInWithEmail()}>SIgn in</button>
-      <button onClick={() => signOut()}>SIgn out</button>
     </div>
   );
 };
