@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 
-import{ Dashboard, Cart }from './screens/index.tsx'
+import{ Dashboard, Cart, Register, Login }from './screens/index'
 
 
 
@@ -20,6 +20,12 @@ const  App = () =>  {
         <Switch>
           <Route path="/cart">
             <Cart />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/login">
+            <Login />
           </Route>
           <Route path="/">
             <Dashboard />

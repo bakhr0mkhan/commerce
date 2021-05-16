@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useCommerceContext } from "../../context/index.tsx";
+import { useCommerceContext, useFirebaseContext } from "../../context/index";
+import firebase from 'firebase/app'
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -8,26 +9,44 @@ import { GrClearOption } from "react-icons/gr";
 import "./styles.css";
 
 
-const Header = (props) => {
+const Header = () => {
+	const auth = firebase.auth()
 	const location = useLocation();
 	const { commerce } = useCommerceContext();
+	const {currentUser} = useFirebaseContext();
 	const [cartLength, setCartLength] = useState(0);
+
+	useEffect(() => {
+		retrieveCart();
+		console.log("header user", currentUser)
+	}, []);
+
+	useEffect(() => {
+		console.log(" header user is changed ", currentUser)
+		return () => {
+			
+		}
+	}, [currentUser])
+
+	const signOut = async () => {
+	    await auth.signOut()
+            .then(res => console.log('signed out' , res))
+            .catch(err => console.log("could not sign out", err))
+    }
 
     const retrieveCart = async () => {
         await commerce.cart
             .retrieve()
-            .then((cart) => {
+            .then((cart: { line_items: string | any[]; }) => {
                 if (cart.line_items.length !== cartLength) {
                     retrieveCart();
                 }
                 setCartLength(cart.line_items.length);
             })
-            .catch((err) => console.log("error ", err));
+            .catch((err: any) => console.log("error ", err));
     };
 
-	useEffect(() => {
-		retrieveCart();
-	}, []);
+
 
 
 
@@ -39,13 +58,6 @@ const Header = (props) => {
 					<p className="brandName">Some shop</p>
 				</div>
                 <div className="rightContainer">
-				<div className="cartIconContainer">
-						<button className="cartButton"
-                            onClick={() => props.emptyCart}
-                        >
-							<GrClearOption className="cartIcon" />
-						</button>
-				</div>
 			</div>
 			</div>
 		);
@@ -65,9 +77,19 @@ const Header = (props) => {
 						</div>
 					</Link>
 				</div>
-				<div className="authContainer">
-					<button className="button authButton">Login</button>
-				</div>
+				{
+					currentUser ? (
+						<button className="button authButton"
+							onClick={()=> signOut()}
+						>Log out</button>
+					): (
+						<Link to="/login" className="link">
+						<div className="authContainer">
+							<button className="button authButton">Login</button>
+						</div>
+						</Link>
+					)
+				}
 			</div>
 		</div>
 	);

@@ -5,65 +5,38 @@ import firebase from 'firebase/app'
 
 
 
-import {signInWithGoogle} from '../../firebase/index'
 
 
 
-import { useCommerceContext, useFirebaseContext } from "../../context/index.tsx";
-import {Header } from '../../components/index.tsx'
+import { useCommerceContext, useFirebaseContext } from "../../context/index";
+import {Header } from '../../components/index'
 import './styles.css'
 import {FaCartPlus} from "react-icons/fa";
 import cartLoading  from "../../assets/animations/cartLoading.json";
 import {sign} from "node:crypto";
+import {CartResponse} from '../../types/index'
 
 const Cart = () => {
-	const { commerce } = useCommerceContext();
+	// @ts-ignore
+    const { commerce } = useCommerceContext();
+    // @ts-ignore
 	const {currentUser} = useFirebaseContext()
 
     const auth = firebase.auth()
 
     const [cart, setCart] = useState()
-    const [loading , setLoading] = useState(false)
+    const [loading , setLoading] = useState(true)
 
 
     useEffect(()=>{
         // retrieveCart()
         // app.initializeApp(firebaseConfig);
-        console.log('User is ',currentUser)
+        // console.log('User is ',currentUser)
     }, [])
     useEffect(()=>{
         retrieveCart()
     }, [cart])
-    useEffect(()=>{
-        console.log('user is changed', currentUser)
-    }, [currentUser])
 
-    const createUserWithEmail = async () => {
-        await auth.createUserWithEmailAndPassword('email322323@mail.ru', 'passoIjfoJojfoosOJ')
-            .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                console.log('newly created user', user)
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage)
-            });
-    }
-
-    const signInWithEmail = async () => {
-	    await auth.signInWithEmailAndPassword('email322323@mail.ru','passoIjfoJojfoosOJ' )
-            .then(userSigned => console.log('successfull sign in ',userSigned))
-            .catch( err => console.log('could not sign in', err))
-    }
-
-    const signOut = async () => {
-	    await auth.signOut()
-            .then(res => console.log('signed out' , res))
-            .catch(err => console.log("could not sign out", err))
-    }
 
     const signInWithFacebook = async () => {
         const providerFb = new firebase.auth.FacebookAuthProvider();
@@ -74,13 +47,11 @@ const Cart = () => {
 
 
     const retrieveCart = async () => {
-        setLoading(true)
         try {
-            await commerce.cart.retrieve()
-                .then((cart) => {
+            // setLoading(true)
+            await commerce.cart.retrieve<CartResponse>()
+                .then((cart: { line_items: React.SetStateAction<undefined>; }) => {
                     setCart(cart.line_items)
-                    // console.log(cart.line_items)
-                    setLoading(false)
                 })
         }catch(err){
             console.log(err)
@@ -92,24 +63,24 @@ const Cart = () => {
 
     const emptyCart = async () => {
         await commerce.cart.empty()
-        .then((res) => setCart(res.cart.line_items))
-        .catch(err => console.log(err))
+        .then((res: { cart: { line_items: React.SetStateAction<undefined>; }; }) => setCart(res.cart.line_items))
+        .catch((err: any) => console.log(err))
     }
-    const removeFromCart = async (prodId) => {
+    const removeFromCart = async (prodId: React.Key | string | null | undefined) => {
         await commerce.cart.remove(prodId)
-            .then((res) => console.log('successfully removed',res))
-            .catch(err => console.log('could not remove',err))
+            .then((res: any) => console.log('successfully removed',res))
+            .catch((err: any) => console.log('could not remove',err))
     }
 
-    const decreaseQuantity = async  (prodId, quantity) => {
+    const decreaseQuantity = async (prodId: React.Key | string | null | undefined, quantity: number) => {
         await commerce.cart.update(prodId, {quantity: quantity})
-            .then(res => res)
-            .catch(err => console.log('could not decrease'))
+            .then((res: any)=> res)
+            .catch((err: any) => console.log('could not decrease', err))
     }
-    const increaseQuantity = async  (prodId, quantity) => {
+    const increaseQuantity = async  (prodId:string, quantity:number) => {
         await commerce.cart.update(prodId, {quantity: quantity})
-            .then(res => res)
-            .catch(err => console.log('could not decrease'))
+            .then((res: any) => res)
+            .catch((err: any) => console.log('could not decrease', err))
     }
 
 
@@ -133,11 +104,14 @@ const Cart = () => {
     }
 
 
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div>
             <Header emptyCart={emptyCart}/>
             <div className="prodsCon">
-                {cart?.map((prod) => (
+                {cart?.map((prod: { id: React.Key | null | undefined; media: { source: string | undefined; }; quantity: {} | null | number; }) => (
                     <div key={prod.id} className="prodCon">
                         <div className="prodImgCon">
                             <img src={prod.media.source} className="prodImg" />
@@ -157,7 +131,7 @@ const Cart = () => {
                         <div>
                             <div>
                                 <button
-                                    onClick={()=>decreaseQuantity(prod.id, prod.quantity - 1)}
+                                    onClick={()=>decreaseQuantity(prod.id , prod.quantity - 1)}
                                 >
                                     -
                                 </button>
@@ -179,16 +153,7 @@ const Cart = () => {
             >
             empty the cart
             </button>
-            <button
-                onClick={()=>signInWithGoogle()}
-            >
-            SIgn in with google
-            </button>
-            <button
-                onClick={()=>signInWithFacebook()}
-            >
-            SIgn in with fb
-            </button>
+
             <button
                 onClick={()=>createUserWithEmail()}
             >

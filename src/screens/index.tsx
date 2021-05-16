@@ -1,2 +1,4 @@
-export {default as Dashboard} from './Dashboard/index.tsx'
-export {default as Cart} from './Cart/index.tsx'
+export {default as Dashboard} from './Dashboard/index'
+export {default as Cart} from './Cart/index'
+export {default as Register} from './Register/index'
+export {default as Login} from './Login/index'

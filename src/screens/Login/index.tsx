@@ -1,37 +1,50 @@
 import React, { useState } from "react";
 import firebase from "firebase/app";
-import { useForm } from "react-hook-form";
-//@ts-ignore
-import { Redirect, useHistory } from "react-router-dom";
 import Lottie from "react-lottie";
+
+//@ts-ignore
+import { Link, useHistory } from "react-router-dom";
+
+import { useForm } from "react-hook-form";
+import "./styles.css";
 
 import FBIcon from "../../assets/icons/fb.png";
 import GoogleIcon from "../../assets/icons/google.png";
 import loginScreen from "../../assets/animations/loginScreen.json";
-import registration0 from "../../assets/animations/registration0.json";
-import registration1 from "../../assets/animations/registration1.json";
+import manLogin from "../../assets/animations/manLogin.json";
+import loginLoading from "../../assets/animations/loginLoading.json";
 
 interface Props {}
 
-const Register = (props: Props) => {
+const Login = (props: Props) => {
   const auth = firebase.auth();
   const history = useHistory();
-
   const [loading, setLoading] = useState(false);
 
-  const createUserWithEmail = async (email: string, password: any) => {
-    await auth
-      .createUserWithEmailAndPassword(email, password)
+  const signInWithEmail = async (email: string, password: string) => {
+    setLoading(true);
+    try {
+      await auth
+        .signInWithEmailAndPassword(email, password)
+        .then((userSigned) => console.log("successfull sign in ", userSigned))
+        .catch((err) => console.log("could not sign in", err));
+    } catch {
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    const providerGoogle = new firebase.auth.GoogleAuthProvider();
+    auth
+      .signInWithPopup(providerGoogle)
       .then((res) => {
-        // Signed up
         history.push("/");
-        console.log("newly created user", res.user);
-        // ...
+        console.log("sucess, ", res);
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+      .catch((err) => {
+        history.push("/register");
+        console.log("error", err);
       });
   };
   const signInWithFacebook = async () => {
@@ -48,28 +61,13 @@ const Register = (props: Props) => {
       });
   };
 
-  const signInWithGoogle = async () => {
-    const providerGoogle = new firebase.auth.GoogleAuthProvider();
-    auth
-      .signInWithPopup(providerGoogle)
-      .then((res) => {
-        history.push("/");
-        console.log("sucess, ", res);
-      })
-      .catch((err) => {
-        history.push("/register");
-        console.log("error", err);
-      });
-  };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   //   const onSubmit = (data: any) => console.log(data);
-  const onSubmit = (data: any) =>
-    createUserWithEmail(data.email, data.password);
+  const onSubmit = (data: any) => signInWithEmail(data.email, data.passowrd);
   if (loading) {
     return (
       <Lottie
@@ -88,6 +86,7 @@ const Register = (props: Props) => {
       />
     );
   }
+
   return (
     <div className="mainConLogin">
       <div className="sidebar left">
@@ -95,7 +94,7 @@ const Register = (props: Props) => {
           options={{
             loop: true,
             autoplay: true,
-            animationData: registration0,
+            animationData: loginScreen,
             rendererSettings: {
               preserveAspectRatio: "xMidYMid slice",
             },
@@ -123,12 +122,7 @@ const Register = (props: Props) => {
             className="passwordInput input"
             placeholder="Password"
           />
-          <input
-            type="submit"
-            className="submitBtn "
-            value="Sign up"
-            disabled={loading}
-          />
+          <input type="submit" className="submitBtn " value="Sign in" />
         </form>
 
         <div className="footerdiv">
@@ -147,9 +141,9 @@ const Register = (props: Props) => {
           <div className=" row">
             <button
               className="btns account"
-              onClick={() => history.push("/login")}
+              onClick={() => history.push("/register")}
             >
-              Back to login
+              Create an account
             </button>
           </div>
         </div>
@@ -159,7 +153,7 @@ const Register = (props: Props) => {
           options={{
             loop: true,
             autoplay: true,
-            animationData: registration1,
+            animationData: manLogin,
             rendererSettings: {
               preserveAspectRatio: "xMidYMid slice",
             },
@@ -174,4 +168,4 @@ const Register = (props: Props) => {
   );
 };
 
-export default Register;
+export default Login;
