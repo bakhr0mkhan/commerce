@@ -7,7 +7,7 @@ import Lottie from "react-lottie";
 
 import FBIcon from "../../assets/icons/fb.png";
 import GoogleIcon from "../../assets/icons/google.png";
-import loginScreen from "../../assets/animations/loginScreen.json";
+import loginLoading from "../../assets/animations/loginLoading.json";
 import registration0 from "../../assets/animations/registration0.json";
 import registration1 from "../../assets/animations/registration1.json";
 
