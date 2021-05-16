@@ -28,7 +28,6 @@ const Cart = () => {
 
   useEffect(() => {
     retrieveCart();
-    console.log("api key", process.env.REACT_APP_API_KEY);
   }, []);
   //   useEffect(() => {
   //     retrieveCart();
