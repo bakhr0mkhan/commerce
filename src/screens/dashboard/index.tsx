@@ -9,6 +9,7 @@ import { localCategories } from "../../assets/data/index";
 import commerceLoading from "../../assets/animations/commerceLoading.json";
 
 const Dashboard: FC = () => {
+  //@ts-ignore
   const { commerce } = useCommerceContext();
 
   const [categories, setCategories] = useState<any>();

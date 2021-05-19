@@ -25,4 +25,4 @@ yarn-error.log*
 
 .env
 
-./src/firebase/index.ts
+/src/firebase/index.ts

@@ -1,1 +1,1 @@
-export {default as Header }from './Header/index.tsx'
+export {default as Header }from './Header/index'
