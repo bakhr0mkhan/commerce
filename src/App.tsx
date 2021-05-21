@@ -3,7 +3,14 @@ import React from "react";
 //@ts-ignore
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Dashboard, Cart, Register, Login, Checkout } from "./screens/index";
+import {
+  Dashboard,
+  Cart,
+  Register,
+  Login,
+  Checkout,
+  Payment,
+} from "./screens/index";
 
 const App = () => {
   return (
@@ -20,6 +27,9 @@ const App = () => {
         </Route>
         <Route path="/checkout">
           <Checkout />
+        </Route>
+        <Route path="/payment">
+          <Payment />
         </Route>
         <Route path="/">
           <Dashboard />

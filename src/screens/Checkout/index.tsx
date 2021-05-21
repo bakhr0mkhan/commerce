@@ -15,18 +15,21 @@ const Checkout = (props: Props) => {
 
   //states
   const [checkoutTokenId, setCheckoutTokenId] = useState("");
+  const [cart, setCart] = useState<any>();
   const [shippingCountries, setShippingCountries] = useState<any>();
   const [shippingCountry, setShippingCountry] = useState<any>();
   const [shippingSubdivisions, setShippingSubdivisions] = useState<any>();
   const [shippingSubdivision, setShippingSubdivision] = useState<any>();
   const [shippingOption, setShippingOption] = useState<any>();
   const [shippingOptions, setShippingOptions] = useState<any>();
+  const [formInput, setFormInput] = useState<any>();
 
   //effects
   useEffect(() => {
     const cart = history.location.state.cart;
     if (cart) {
       console.log("cart", cart);
+      setCart(cart);
       generateCheckoutToken(cart.id);
     }
     return () => {
@@ -93,7 +96,7 @@ const Checkout = (props: Props) => {
             label: name,
           })
         );
-        console.log("array of ", structuredCountries);
+        console.log("array of countries ", structuredCountries);
         setShippingCountries(structuredCountries);
       })
       .catch((error: any) => {
@@ -154,12 +157,27 @@ const Checkout = (props: Props) => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data: any) => {
-    console.log("form data", {
+    const formInfo = {
       ...data,
       shippingCountry,
       shippingSubdivision,
       shippingOption,
-    });
+    };
+    try {
+      setFormInput(formInfo);
+      history.push({
+        pathname: "/payment",
+        state: {
+          formData: formInfo,
+          cart,
+          checkoutTokenId,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      console.log(formInfo);
+    }
   };
   return (
     <div>
@@ -194,6 +212,31 @@ const Checkout = (props: Props) => {
         <input
           {...register("zip", { required: true })}
           placeholder="ZIP/Postal code"
+          className="input"
+        />
+        <input
+          {...register("cardNum", { required: true })}
+          placeholder="Card Num"
+          className="input"
+        />
+        <input
+          {...register("expMonth", { required: true })}
+          placeholder="expMonth"
+          className="input"
+        />
+        <input
+          {...register("expYear", { required: true })}
+          placeholder="expYear"
+          className="input"
+        />
+        <input
+          {...register("ccv", { required: true })}
+          placeholder="ccv"
+          className="input"
+        />
+        <input
+          {...register("billingPostalZipcode", { required: true })}
+          placeholder="billingPostalZipcode"
           className="input"
         />
         <input type="submit" className="input" />
