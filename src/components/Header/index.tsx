@@ -13,19 +13,11 @@ import "./styles.css";
 const Header = () => {
   const auth = firebase.auth();
   const location = useLocation();
+  //@ts-ignore
   const { commerce, refreshCart } = useCommerceContext();
+  //@ts-ignore
   const { currentUser } = useFirebaseContext();
   const [cartLength, setCartLength] = useState(0);
-
-  useEffect(() => {
-    retrieveCart();
-    console.log("header user", currentUser);
-  }, []);
-
-  useEffect(() => {
-    console.log(" header user is changed ", currentUser);
-    return () => {};
-  }, [currentUser]);
 
   const signOut = async () => {
     await auth

@@ -3,23 +3,30 @@ import Lottie from "react-lottie";
 import { FaCartPlus } from "react-icons/fa";
 
 import { useCommerceContext, useFirebaseContext } from "../../context/index";
-import { Header } from "../../components/index";
 import "./styles.css";
 import { localCategories } from "../../assets/data/index";
+import { Header } from "../../components";
 import commerceLoading from "../../assets/animations/commerceLoading.json";
 
 const Dashboard: FC = () => {
   //@ts-ignore
   const { commerce } = useCommerceContext();
+  //@ts-ignore
+  const { currentUser } = useFirebaseContext();
 
   const [categories, setCategories] = useState<any>();
   const [products, setProducts] = useState<any>();
   const [selectedCategory, setSelectedCategory] = useState(localCategories[0]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    console.log("auth user", currentUser);
     fetchProducts();
     return () => setProducts({});
   }, []);
+
+  useEffect(() => {
+    console.log("user change", currentUser);
+  }, [currentUser]);
 
   const fetchProducts = async () => {
     setLoading(true);

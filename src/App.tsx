@@ -10,27 +10,31 @@ import {
   Login,
   Checkout,
   Payment,
-} from "./screens/index";
+  PrivateRoute,
+} from "./screens";
 
 const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/cart">
+        <PrivateRoute exact path="/cart" component={Cart} />
+        <PrivateRoute exact path="/checkout" component={Checkout} />
+        <PrivateRoute exact path="/payment" component={Payment} />
+        {/* <Route path="/cart">
           <Cart />
-        </Route>
+        </Route> */}
         <Route path="/register">
           <Register />
         </Route>
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/checkout">
+        {/* <Route path="/checkout">
           <Checkout />
-        </Route>
-        <Route path="/payment">
+        </Route> */}
+        {/* <Route path="/payment">
           <Payment />
-        </Route>
+        </Route> */}
         <Route path="/">
           <Dashboard />
         </Route>
