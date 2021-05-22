@@ -1,146 +1,63 @@
-html, body{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+:root {
+  --primary: #3b5998;
 }
 
-.container{
+@media screen and (max-width: 600px) {
+  html,
+  body {
     margin: 0;
     padding: 0;
-    /* width: 100vw;
-    height: 100vh; */
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .mainCon {
+    border: 1px solid pink;
+    width: 100%;
     height: 100vh;
-}
+  }
 
-.container{
-
-}
-.mainCon{
-    display: flex;
-    flex-direction: row;
-
-}
-.leftCon{
-    flex: 1;
-    padding: 0 2rem
-}
-.categoryName{
-    text-transform: capitalize;
-    font-size: 17px;
-    font-weight: normal;
-    font-family: "Quicksand", sans-serif;
-    width: 100%;
-    border: none;
-    outline: none;
-    text-align: left;
-    background-color: transparent;
-    padding: 0.8rem 0;
-}
-.rightCon{
-    flex: 5
-
-}
-.heading3{
-    font-family: 'Fredoka One', cursive;
-    font-size: 24px;
-}
-
-.btnIcon{
-    width: 20px ;
-    height: 20px;
-}
-.categorySingleCon{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.categoryHeaderCon {
+  .navbar {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding : 0  3rem 0 0;
-}
-
-.filterBtn{
-    border-radius: 0.3rem;
-    border: 0.5px solid gray;
-    text-align: center;
-    margin: auto;
-    padding: 0.5rem 1rem;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    background-color: white;
-}
-
-.subContainer {
+    height: 4rem;
+    border-bottom: 0.5px solid var(--primary);
+    padding: 0 1rem 0 2rem;
+  }
+  .navbarRight {
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-
-.catIcon{
+  }
+  .branName {
+    font-family: "Pattaya", sans-serif;
+    font-size: 1.5rem;
+    color: black;
+  }
+  .cartIconContainer button {
+    border: none;
+    background-color: white;
+  }
+  .authIconCon {
+    margin-left: 1rem;
+  }
+  .cartBtn {
+    border: none;
+    background-color: white;
+  }
+  .cartIcon {
     width: 25px;
     height: 25px;
-}
-.prodsCon{
-    display: flex;
-    flex-direction :row;
-    align-items: center;
-    flex-wrap : wrap;
-}
-.prodCon{
-    border: 1px solid lightgray;
-    height: 30vh;
-    width: 18vw;
-    margin: 0.5rem;
-    display: flex;
-    flex-direction: column;
-}
-.prodImg{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    /* border-radius: 1.7rem; */
-}
-
-.prodImgCon{
-    margin: 0;
-    padding: 0;
-    height: 80%;
-    width: 100%;
-}
-.prodInfoCon{
-    margin: auto;
-    padding:  0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-}
-.prodName{
-    font-family: "Quicksand", sans-serif;
-
-}
-.prodPrice{
-    /* font-family: "Quicksand", sans-serif; */
-}
-
-.prodNameContainer{
-
-}
-.addToCartCon{
-    margin : 0 1rem;
-    border: none ;
+  }
+  .authBtn {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-weight: 700;
     background-color: white;
-    outline: none;
-}
-.addToCartIcon{
-    width: 1.4rem;
-    height: 1.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1.2rem;
+    font-family: "Lato", sans-serif;
+  }
 }
