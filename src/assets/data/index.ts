@@ -9,16 +9,21 @@
 // const souvenir = require("../icons/souvenir.png");
 // const watch = require("../icons/watch.png");
 
-import newIcon from '../icons/new.png'
-import bag from '../icons/bag.png'
-import cloth from '../icons/cloth.png'
-import gadget from '../icons/gadget.png'
-import jewellery from '../icons/jewellery.png'
-import laptop from '../icons/laptop.png'
-import phone from '../icons/phone.png'
-import sale from '../icons/sale.png'
-import souvenir from '../icons/souvenir.png'
-import watch from '../icons/watch.png'
+import newIcon from "../icons/new.png";
+import bag from "../icons/bag.png";
+import cloth from "../icons/cloth.png";
+import gadget from "../icons/gadget.png";
+import jewellery from "../icons/jewellery.png";
+import laptop from "../icons/laptop.png";
+import phone from "../icons/phone.png";
+import sale from "../icons/sale.png";
+import souvenir from "../icons/souvenir.png";
+import watch from "../icons/watch.png";
+
+import slider0 from "../images/slider0.jpg";
+import slider1 from "../images/slider1.jpg";
+import slider2 from "../images/slider2.jpg";
+import slider3 from "../images/slider3.jpg";
 
 export const localCategories = [
   {
@@ -81,4 +86,11 @@ export const localCategories = [
     slug: "watches",
     icon: watch,
   },
+];
+
+export const sliderImages = [
+  { url: slider0 },
+  { url: slider1 },
+  { url: slider2 },
+  { url: slider3 },
 ];

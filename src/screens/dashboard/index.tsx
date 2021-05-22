@@ -4,11 +4,13 @@ import { FaShoppingCart } from "react-icons/fa";
 
 import { useCommerceContext, useFirebaseContext } from "../../context/index";
 import "./styles.css";
-import { localCategories } from "../../assets/data";
+import { localCategories, sliderImages } from "../../assets/data";
 import commerceLoading from "../../assets/animations/commerceLoading.json";
 //@ts-ignore
 import { useHistory } from "react-router-dom";
 import firebase from "firebase/app";
+import SimpleImageSlider from "react-simple-image-slider";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const Dashboard: FC = () => {
   //@ts-ignore
@@ -16,6 +18,8 @@ const Dashboard: FC = () => {
   //@ts-ignore
   const { currentUser } = useFirebaseContext();
   const auth = firebase.auth();
+
+  const { height, width } = useWindowDimensions();
 
   const history = useHistory();
 
@@ -29,6 +33,10 @@ const Dashboard: FC = () => {
     console.log("l c", localCategories);
     return () => setProducts({});
   }, []);
+
+  useEffect(() => {
+    // console.log("current h and width", height, width);
+  }, [height, width]);
 
   useEffect(() => {
     console.log("user change", currentUser);
@@ -137,6 +145,25 @@ const Dashboard: FC = () => {
           </div>
         </div>
       </div>
+      {/* time for slider */}
+      <div className="sliderCon">
+        {/* @ts-ignore */}
+        <SimpleImageSlider
+          width={width - 10}
+          height={height / 3}
+          showBullets={true}
+          showNavs={true}
+          navMargin={0}
+          images={sliderImages}
+          slideDuration={0.7}
+          navSize={30}
+          // onCompleteSlide={(index, length) => {
+          //   index: 0;
+          // }}
+        />
+      </div>
+
+      {/* end of main con */}
     </div>
 
     //   <div className="container">
