@@ -114,7 +114,6 @@ const Dashboard: FC = () => {
       .retrieve()
       .then((res: any) => {
         setCart(res);
-        console.log("cart", res);
       })
       .catch((err: errorCase) => console.log("err", err));
   };
@@ -215,7 +214,7 @@ const Dashboard: FC = () => {
       <div className="productsContainer">
         <div className="productsContainerSub">
           {products &&
-            products.map((product) => (
+            products.map((product: any) => (
               <div
                 className="productCon"
                 key={product.id}
