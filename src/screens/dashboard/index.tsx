@@ -24,7 +24,7 @@ const Dashboard: FC = () => {
   const history = useHistory();
 
   //states
-
+  const [cart, setCart] = useState<any>();
   const [categories, setCategories] = useState<any>();
   const [products, setProducts] = useState<any>();
   const [selectedCategory, setSelectedCategory] = useState(localCategories[0]);
@@ -34,9 +34,14 @@ const Dashboard: FC = () => {
   useEffect(() => {
     console.log("auth user", currentUser);
     fetchProducts();
-    console.log("l c", localCategories);
+    retrieveCart();
+    // console.log("l c", localCategories);
     return () => setProducts({});
   }, []);
+
+  useEffect(() => {
+    retrieveCart();
+  }, [cart]);
 
   useEffect(() => {
     console.log("current h and width", height, width);
@@ -72,7 +77,7 @@ const Dashboard: FC = () => {
   const addToCart = async (productId: number) => {
     await commerce.cart
       .add(productId, 1)
-      .then((res: any) => res)
+      .then((res: any) => console.log("added", res))
       .catch((err: errorCase) => console.log("err happended", err));
   };
 
@@ -102,6 +107,16 @@ const Dashboard: FC = () => {
       .signOut()
       .then((res) => console.log("signed out", res))
       .catch((err) => console.log("could not sign out", err));
+  };
+
+  const retrieveCart = async () => {
+    await commerce.cart
+      .retrieve()
+      .then((res: any) => {
+        setCart(res);
+        console.log("cart", res);
+      })
+      .catch((err: errorCase) => console.log("err", err));
   };
 
   if (loading) {
@@ -138,6 +153,7 @@ const Dashboard: FC = () => {
               }}
             >
               <FaShoppingCart className="cartIcon" />
+              <h3 className="cartTotalItems">{cart ? cart.total_items : 0}</h3>
             </button>
           </div>
           <div className="authIconCon">
@@ -228,7 +244,10 @@ const Dashboard: FC = () => {
                     </h6>
                   </div>
                   <div className="productBottomRight">
-                    <button className="addToCartBtn">
+                    <button
+                      className="addToCartBtn"
+                      onClick={() => addToCart(product.id)}
+                    >
                       <FaCartPlus
                         className="addToCartIcon"
                         style={{

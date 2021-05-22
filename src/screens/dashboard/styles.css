@@ -46,6 +46,12 @@
   .cartBtn {
     border: none;
     background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .cartTotalItems {
+    margin-left: 0.1rem;
   }
   .cartIcon {
     width: 25px;
