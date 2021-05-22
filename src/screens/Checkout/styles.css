@@ -1,0 +1,53 @@
+:root {
+  primary: #3b5998;
+}
+
+@media screen and (max-width: 600px) {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  .checkoutMainCon {
+    width: 100vw;
+    height: 100vh;
+  }
+  .checkoutFormContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .checkoutSubCon {
+  }
+  #checkoutInputId {
+    margin: 0.5rem auto;
+  }
+  .selectPackageComponent {
+    width: 80%;
+    margin: 0.5rem 0;
+    border-color: var(--primary);
+  }
+  #checkoutSubmitBtn {
+    background-color: var(--primary);
+    color: white;
+    font-family: "Lato", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .warningMsgContainer {
+    width: 80%;
+  }
+  .warningPaymentText {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    line-height: 1rem;
+    font-family: "Lato", sans-serif;
+    font-weight: 500;
+  }
+  .warningPaymentTextSub {
+    margin: 0;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+  }
+}

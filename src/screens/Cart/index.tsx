@@ -34,7 +34,6 @@ const Cart = () => {
 
   useEffect(() => {
     retrieveCart();
-    console.log("cur cart", cart);
   }, [cart]);
 
   //functions
@@ -47,7 +46,7 @@ const Cart = () => {
         // console.log("cart changed ", cart);
       });
     } catch (err) {
-      console.log(err);
+      history.push("/");
     } finally {
       setLoading(false);
     }

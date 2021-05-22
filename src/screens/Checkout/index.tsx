@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { useCommerceContext } from "../../context";
 //@ts-ignore
 import Select from "react-select";
+import "./styles.css";
+
+import { FaStripe } from "react-icons/fa";
 
 interface Props {}
 
@@ -181,93 +184,137 @@ const Checkout = (props: Props) => {
     }
   };
   return (
-    <div>
-      <div> this is checkout</div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          {...register("firstName")}
-          placeholder="First name"
-          className="input"
-        />{" "}
-        {/* register an input */}
-        <input
-          {...register("lastName", { required: true })}
-          placeholder="Last name"
-          className="input"
-        />
-        <input
-          {...register("adress1", { required: true })}
-          placeholder="Adress"
-          className="input"
-        />
-        <input
-          {...register("email", { required: true })}
-          placeholder="Email"
-          className="input"
-        />
-        <input
-          {...register("city", { required: true })}
-          placeholder="City"
-          className="input"
-        />
-        <input
-          {...register("zip", { required: true })}
-          placeholder="ZIP/Postal code"
-          className="input"
-        />
-        <input
-          {...register("cardNum", { required: true })}
-          placeholder="Card Num"
-          className="input"
-        />
-        <input
-          {...register("expMonth", { required: true })}
-          placeholder="expMonth"
-          className="input"
-        />
-        <input
-          {...register("expYear", { required: true })}
-          placeholder="expYear"
-          className="input"
-        />
-        <input
-          {...register("ccv", { required: true })}
-          placeholder="ccv"
-          className="input"
-        />
-        <input
-          {...register("billingPostalZipcode", { required: true })}
-          placeholder="billingPostalZipcode"
-          className="input"
-        />
-        <input type="submit" className="input" />
-      </form>
-      <Select
-        className="basic-single"
-        classNamePrefix="select"
-        // defaultValue={}
-        isDisabled={false}
-        isLoading={false}
-        isClearable={true}
-        isRtl={false}
-        isSearchable={true}
-        name="Countries"
-        options={shippingCountries}
-        onChange={(e: any) => setShippingCountry(e)}
-      />
-      <Select
-        className="basic-single"
-        classNamePrefix="select"
-        // defaultValue={}
-        isDisabled={false}
-        isLoading={false}
-        isClearable={true}
-        isRtl={false}
-        isSearchable={true}
-        name="Countries"
-        options={shippingSubdivisions}
-        onChange={(e: any) => setShippingSubdivision(e)}
-      />
+    <div className="checkoutMainCon">
+      <div className="navbar">
+        <div className="navbarLeft" onClick={() => history.push("/")}>
+          <h3 className="branName">Kamazon</h3>
+        </div>
+        <div className="navbarRight">
+          <FaStripe
+            style={{
+              width: 75,
+              height: 35,
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="checkoutSubCon">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="checkoutFormContainer"
+        >
+          <input
+            {...register("firstName")}
+            placeholder="First name"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />{" "}
+          {/* register an input */}
+          <input
+            {...register("lastName", { required: true })}
+            placeholder="Last name"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />
+          <input
+            {...register("adress1", { required: true })}
+            placeholder="Adress"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />
+          <input
+            {...register("email", { required: true })}
+            placeholder="Email"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />
+          <input
+            {...register("city", { required: true })}
+            placeholder="City"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />
+          <input
+            {...register("zip", { required: true })}
+            placeholder="ZIP/Postal code"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />
+          <Select
+            className="selectPackageComponent"
+            classNamePrefix="select"
+            // defaultValue={}
+            isDisabled={false}
+            isLoading={false}
+            isClearable={true}
+            isRtl={false}
+            isSearchable={true}
+            name="Countries"
+            options={shippingCountries}
+            onChange={(e: any) => setShippingCountry(e)}
+          />
+          <Select
+            className="selectPackageComponent"
+            classNamePrefix="select"
+            // defaultValue={}
+            isDisabled={false}
+            isLoading={false}
+            isClearable={true}
+            isRtl={false}
+            isSearchable={true}
+            name="Countries"
+            options={shippingSubdivisions}
+            onChange={(e: any) => setShippingSubdivision(e)}
+          />
+          <div className="warningMsgContainer">
+            <h4 className="warningPaymentText">
+              Warning! Since our website is in test mode test gateway for
+              payment to be used
+            </h4>
+            <h5 className="warningPaymentTextSub">
+              Test card: 4242424242424242|04/24|242|42424
+            </h5>
+          </div>
+          <input
+            {...register("cardNum", { required: true })}
+            placeholder="Card Number"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />
+          <input
+            {...register("expMonth", { required: true })}
+            placeholder="Expiry Month"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />
+          <input
+            {...register("expYear", { required: true })}
+            placeholder="Expiry Year"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />
+          <input
+            {...register("ccv", { required: true })}
+            placeholder="CCV"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />
+          <input
+            {...register("billingPostalZipcode", { required: true })}
+            placeholder="Billing Postal Zip code"
+            className="input checkoutInput"
+            id="checkoutInputId"
+          />
+          <input
+            type="submit"
+            className="input"
+            id="checkoutSubmitBtn"
+            value="Pay"
+          />
+        </form>
+      </div>
+
       {/* <Select
         className="basic-single"
         classNamePrefix="select"
