@@ -62,6 +62,13 @@ export const localCategories = [
     slug: "phones",
     icon: phone,
   },
+
+  {
+    id: 9,
+    name: "Watch",
+    slug: "watches",
+    icon: watch,
+  },
   {
     id: 6,
     name: "Gadgets",
@@ -79,12 +86,6 @@ export const localCategories = [
     name: "Souvenirs",
     slug: "souvenirs",
     icon: souvenir,
-  },
-  {
-    id: 9,
-    name: "Watch",
-    slug: "watches",
-    icon: watch,
   },
 ];
 

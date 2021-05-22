@@ -1,6 +1,6 @@
 import React, { useEffect, useState, FC } from "react";
 import Lottie from "react-lottie";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaCartPlus } from "react-icons/fa";
 
 import { useCommerceContext, useFirebaseContext } from "../../context/index";
 import "./styles.css";
@@ -13,6 +13,7 @@ import SimpleImageSlider from "react-simple-image-slider";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const Dashboard: FC = () => {
+  //hooks
   //@ts-ignore
   const { commerce } = useCommerceContext();
   //@ts-ignore
@@ -20,13 +21,16 @@ const Dashboard: FC = () => {
   const auth = firebase.auth();
 
   const { height, width } = useWindowDimensions();
-
   const history = useHistory();
+
+  //states
 
   const [categories, setCategories] = useState<any>();
   const [products, setProducts] = useState<any>();
   const [selectedCategory, setSelectedCategory] = useState(localCategories[0]);
   const [loading, setLoading] = useState(false);
+
+  //effects
   useEffect(() => {
     console.log("auth user", currentUser);
     fetchProducts();
@@ -35,12 +39,18 @@ const Dashboard: FC = () => {
   }, []);
 
   useEffect(() => {
-    // console.log("current h and width", height, width);
+    console.log("current h and width", height, width);
   }, [height, width]);
 
   useEffect(() => {
     console.log("user change", currentUser);
   }, [currentUser]);
+  useEffect(() => {
+    console.log("selected category", selectedCategory);
+    categoryChangeProducts();
+  }, [selectedCategory]);
+
+  //functions
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -66,10 +76,6 @@ const Dashboard: FC = () => {
       .catch((err: errorCase) => console.log("err happended", err));
   };
 
-  useEffect(() => {
-    categoryChangeProducts();
-  }, [selectedCategory]);
-
   const categoryChangeProducts = async () => {
     setLoading(true);
     try {
@@ -81,6 +87,7 @@ const Dashboard: FC = () => {
           if (!products.data) {
             fetchProducts();
           }
+          console.log("prods cat", products.data);
           setProducts(products.data);
         });
     } catch (err) {
@@ -157,10 +164,84 @@ const Dashboard: FC = () => {
           images={sliderImages}
           slideDuration={0.7}
           navSize={30}
-          // onCompleteSlide={(index, length) => {
-          //   index: 0;
-          // }}
         />
+      </div>
+      {/* categories container */}
+      <div className="categoriesContainer">
+        <div className="categoriesSub">
+          {localCategories &&
+            localCategories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category)}
+                className="categoryBtn"
+                style={{
+                  backgroundColor:
+                    category == selectedCategory ? "#3b5998" : "white",
+                  color: category == selectedCategory ? "white" : "#3b5998",
+                }}
+              >
+                <img
+                  src={category.icon}
+                  style={{
+                    width: 15,
+                    height: 15,
+                  }}
+                  className="cateogryBtnImg"
+                />
+                {category.name}
+              </button>
+            ))}
+        </div>
+      </div>
+
+      {/* products container */}
+      <div className="productsContainer">
+        <div className="productsContainerSub">
+          {products &&
+            products.map((product) => (
+              <div
+                className="productCon"
+                key={product.id}
+                style={{
+                  width: width / 2.6,
+                  height: height / 4,
+                }}
+              >
+                <div className="productTop">
+                  <img
+                    src={product.media.source}
+                    // style={{
+                    //   width: 30,
+                    //   height: 50,
+                    // }}
+                    className="productImg"
+                  />
+                </div>
+                <div className="productBottom">
+                  <div className="productBottomLeft">
+                    <h5 className="productName">
+                      {product.name.slice(0, 10)}...
+                    </h5>
+                    <h6 className="productPrice">
+                      {product.price.formatted_with_symbol}
+                    </h6>
+                  </div>
+                  <div className="productBottomRight">
+                    <button className="addToCartBtn">
+                      <FaCartPlus
+                        className="addToCartIcon"
+                        style={{
+                          width: 25,
+                          height: 25,
+                        }}
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
 
       {/* end of main con */}
