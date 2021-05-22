@@ -80,6 +80,7 @@ const Checkout = (props: Props) => {
         setCheckoutTokenId(token.id);
       })
       .catch((error: any) => {
+        history.push("/cart");
         console.log("There was an error in generating a token", error);
       });
   };

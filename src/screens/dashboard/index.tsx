@@ -152,7 +152,9 @@ const Dashboard: FC = () => {
               }}
             >
               <FaShoppingCart className="cartIcon" />
-              <h3 className="cartTotalItems">{cart ? cart.total_items : 0}</h3>
+              <h3 className="cartTotalItems">
+                {cart ? cart.total_unique_items : 0}
+              </h3>
             </button>
           </div>
           <div className="authIconCon">
