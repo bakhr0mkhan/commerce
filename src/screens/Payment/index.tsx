@@ -2,17 +2,25 @@ import React, { useEffect, useState } from "react";
 //@ts-ignore
 import { useHistory } from "react-router-dom";
 import { useCommerceContext } from "../../context";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
+
+import "./styles.css";
+
 interface Props {}
 
 const Payment = (props: Props) => {
+  //hooks
+  const { height, width } = useWindowDimensions();
   const history = useHistory();
   //@ts-ignore
   const { commerce } = useCommerceContext();
 
+  //states
   const [checkoutTokenId, setCheckoutTokenId] = useState("");
   const [cart, setCart] = useState<any>();
   const [formData, setFormData] = useState<any>();
 
+  //effects
   useEffect(() => {
     const state = history.location.state;
     if (state) {
@@ -23,6 +31,12 @@ const Payment = (props: Props) => {
       console.log(state);
     }
   }, []);
+
+  useEffect(() => {
+    console.log("current cart", cart);
+  }, [cart]);
+
+  //funcs
 
   const sanitizedLineItems = (lineItems: any) => {
     return lineItems.reduce((data: any, lineItem: any) => {
@@ -94,7 +108,7 @@ const Payment = (props: Props) => {
         .capture(checkoutTokenId, newOrder)
         .then((order: any) => {
           console.log("success", order);
-          history.push("/");
+          history.push("/orderconfirmation");
         })
         .catch((error: any) => {
           console.log("There was an error confirming your order", error);
@@ -108,10 +122,96 @@ const Payment = (props: Props) => {
     // console.log(checkoutTokenId, newOrder);
   };
   return (
-    <div>
-      <div>Payment</div>
-      <button onClick={(e) => handleCaptureCheckout(e)}>Capture order</button>
+    <div className="paymentMainCon">
+      <div className="navbar">
+        <div className="navbarLeft" onClick={() => history.push("/")}>
+          <h3 className="branName">Kamazon</h3>
+        </div>
+        <div className="navbarRight">
+          {/* <div className="cartIconCon">
+            <button
+              className="cartBtn"
+              onClick={() => {
+                emptyCart();
+              }}
+            >
+              <BsTrash className="cartIcon" />
+            </button>
+          </div> */}
+          {/* <div className="authIconCon">
+            <button
+              className="authBtn"
+              onClick={() => {
+                currentUser ? signOut() : history.push("/login");
+              }}
+            >
+              {currentUser ? "Log out" : "Login"}
+            </button>
+          </div> */}
+        </div>
+      </div>
+
+      <div className="productsContainer">
+        <div className="productsContainerSub">
+          {cart?.line_items &&
+            cart?.line_items.map((product: any) => (
+              <div
+                className="productCon"
+                key={product?.id}
+                style={{
+                  width: width / 2.6,
+                  height: height / 4,
+                }}
+              >
+                <div className="productTop">
+                  <img
+                    src={product?.media.source}
+                    // style={{
+                    //   width: 30,
+                    //   height: 50,
+                    // }}
+                    className="productImg"
+                  />
+                </div>
+                <div className="productBottom">
+                  <div className="productBottomLeft">
+                    <h5 className="productName">
+                      {product?.name.slice(0, 10)}...
+                    </h5>
+                    <h6 className="productPrice">
+                      {product?.price.formatted_with_symbol}
+                    </h6>
+                  </div>
+                  <div className="productBottomRight">
+                    <button
+                      className="addToCartBtn"
+                      // onClick={() => removeFromCart(product?.id)}
+                      id="removeFromCartBtn"
+                    >
+                      <p id="productQuantityId">
+                        {product?.quantity ? product.quantity : 1}
+                      </p>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+
+      <div className="confirmOrderTab">
+        <button
+          className="confirmOrderBtn"
+          onClick={(e) => handleCaptureCheckout(e)}
+        >
+          Confirm Order
+        </button>
+      </div>
     </div>
+    // <div>
+    //   <div>Payment</div>
+    // <button onClick={(e) => handleCaptureCheckout(e)}>Capture order</button>
+    // </div>
   );
 };
 

@@ -11,6 +11,7 @@ import {
   Checkout,
   Payment,
   PrivateRoute,
+  OrderConfirmation,
 } from "./screens";
 
 const App = () => {
@@ -23,6 +24,9 @@ const App = () => {
         {/* <Route path="/cart">
           <Cart />
         </Route> */}
+        <Route path="/orderconfirmation">
+          <OrderConfirmation />
+        </Route>
         <Route path="/register">
           <Register />
         </Route>
