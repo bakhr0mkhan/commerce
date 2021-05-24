@@ -144,36 +144,6 @@ const Cart = () => {
     );
   }
 
-  // if (emptyCartArray) {
-  //   return (
-  //     <div
-  //       className="containerFluid"
-  //       style={{
-  //         width: "100%",
-  //         height: "100vh",
-  //         flexDirection: "row",
-  //         alignItems: "center",
-  //         justifyContent: "center",
-  //       }}
-  //     >
-  //       <Lottie
-  //         options={{
-  //           loop: false,
-  //           autoplay: true,
-  //           animationData: emptyCartAnimation,
-  //           rendererSettings: {
-  //             preserveAspectRatio: "xMidYMid slice",
-  //           },
-  //         }}
-  //         height={400}
-  //         width={400}
-  //         isStopped={false}
-  //         isPaused={false}
-  //       />
-  //     </div>
-  //   );
-  // }
-
   const goCheckoutFunc = () => {
     try {
       if (cart) {
@@ -223,7 +193,7 @@ const Cart = () => {
 
       {/* prods */}
       <div className="productsContainer">
-        <div className="productsContainerSub">
+        <div className="productsContainerSub" id="cartproductsContainerSub">
           {cart?.line_items &&
             cart?.line_items.map((product: any) => (
               <div

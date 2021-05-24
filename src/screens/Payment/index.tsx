@@ -127,32 +127,11 @@ const Payment = (props: Props) => {
         <div className="navbarLeft" onClick={() => history.push("/")}>
           <h3 className="branName">Kamazon</h3>
         </div>
-        <div className="navbarRight">
-          {/* <div className="cartIconCon">
-            <button
-              className="cartBtn"
-              onClick={() => {
-                emptyCart();
-              }}
-            >
-              <BsTrash className="cartIcon" />
-            </button>
-          </div> */}
-          {/* <div className="authIconCon">
-            <button
-              className="authBtn"
-              onClick={() => {
-                currentUser ? signOut() : history.push("/login");
-              }}
-            >
-              {currentUser ? "Log out" : "Login"}
-            </button>
-          </div> */}
-        </div>
+        <div className="navbarRight"></div>
       </div>
 
       <div className="productsContainer">
-        <div className="productsContainerSub">
+        <div className="productsContainerSub" id="paymentproductsContainerSub">
           {cart?.line_items &&
             cart?.line_items.map((product: any) => (
               <div
@@ -183,11 +162,7 @@ const Payment = (props: Props) => {
                     </h6>
                   </div>
                   <div className="productBottomRight">
-                    <button
-                      className="addToCartBtn"
-                      // onClick={() => removeFromCart(product?.id)}
-                      id="removeFromCartBtn"
-                    >
+                    <button className="addToCartBtn" id="removeFromCartBtn">
                       <p id="productQuantityId">
                         {product?.quantity ? product.quantity : 1}
                       </p>
@@ -208,10 +183,6 @@ const Payment = (props: Props) => {
         </button>
       </div>
     </div>
-    // <div>
-    //   <div>Payment</div>
-    // <button onClick={(e) => handleCaptureCheckout(e)}>Capture order</button>
-    // </div>
   );
 };
 

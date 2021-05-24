@@ -9,14 +9,17 @@
     padding: 0;
     overflow-x: hidden;
   }
-  .paymentMainCon{
-      width: 100vw;
-      height: 100vh;
+  .paymentMainCon {
+    width: 100vw;
+    position: relative;
   }
   #productQuantityId {
     font-size: 1.1rem;
     font-weight: 600;
     font-family: "Lato", sans-serif;
+  }
+  #paymentproductsContainerSub {
+    padding-bottom: 4rem;
   }
 
   .confirmOrderTab {

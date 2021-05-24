@@ -10,6 +10,10 @@
     overflow-x: hidden;
     box-sizing: border-box;
   }
+  .link {
+    text-decoration: none;
+    color: black;
+  }
 
   .loginMainCon {
     border: 1px solid blue;

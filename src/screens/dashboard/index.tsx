@@ -139,7 +139,7 @@ const Dashboard: FC = () => {
 
   return (
     <div className="mainCon">
-      <div className="navbar">
+      <div className="navbar" id="dashboardNavbar">
         <div className="navbarLeft">
           <h3 className="branName">Kamazon</h3>
         </div>
@@ -170,7 +170,7 @@ const Dashboard: FC = () => {
         </div>
       </div>
       {/* time for slider */}
-      <div className="sliderCon">
+      <div className="sliderCon" id="dashboardSliderCon">
         {/* @ts-ignore */}
         <SimpleImageSlider
           width={width - 10}

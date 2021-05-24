@@ -110,7 +110,9 @@ const Login = (props: Props) => {
           <form onSubmit={handleSubmit(onSubmit)} className="form">
             <h3 className="welcomeMsg">
               Welcome to
-              <h2 className="brandNameMsg"> Kamazon</h2>
+              <Link to="/" className="link">
+                <h2 className="brandNameMsg"> Kamazon</h2>
+              </Link>
             </h3>
             <input
               {...register("email", { required: true })}

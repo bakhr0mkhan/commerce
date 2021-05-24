@@ -16,9 +16,11 @@
   }
   .cartMainCon {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     border: 1px solid pink;
-    position: relative;
+  }
+  #cartproductsContainerSub {
+    padding-bottom: 5rem;
   }
 
   .cartBottomTab {
@@ -33,6 +35,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    background-color: white;
+    z-index: 10;
   }
   .cartBottomTabLeft {
     padding: 0 0.5rem;
