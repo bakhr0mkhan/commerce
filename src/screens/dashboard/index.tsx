@@ -140,7 +140,9 @@ const Dashboard: FC = () => {
     <div className="mainCon">
       <div className="navbar" id="dashboardNavbar">
         <div className="navbarLeft">
-          <h3 className="branName">Kamazon</h3>
+          <h3 className="branName">
+            Kamazon {width} :{height}
+          </h3>
         </div>
         <div className="navbarRight">
           <div className="cartIconCon">
@@ -172,8 +174,10 @@ const Dashboard: FC = () => {
       <div className="sliderCon" id="dashboardSliderCon">
         {/* @ts-ignore */}
         <SimpleImageSlider
-          width={width - 10}
-          height={height / 3}
+          width={width < 600 ? width - 10 : width - 10}
+          height={
+            height > 800 ? height / 3 : height < 700 ? height / 2 : height / 1.5
+          }
           showBullets={true}
           showNavs={true}
           navMargin={0}
@@ -221,8 +225,18 @@ const Dashboard: FC = () => {
                 className="productCon"
                 key={product.id}
                 style={{
-                  width: width / 2.6,
-                  height: height / 4,
+                  width:
+                    width < 600
+                      ? width / 2.6
+                      : width > 1000
+                      ? width / 4
+                      : width / 3,
+                  height:
+                    height < 850 && height > 600
+                      ? height / 4
+                      : height > 1300
+                      ? height / 5
+                      : height / 3,
                 }}
               >
                 <div className="productTop">
