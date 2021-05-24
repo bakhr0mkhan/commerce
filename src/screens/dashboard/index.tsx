@@ -31,7 +31,6 @@ const Dashboard: FC = () => {
 
   //effects
   useEffect(() => {
-    console.log("auth user", currentUser);
     fetchProducts();
     retrieveCart();
     // console.log("l c", localCategories);
@@ -42,15 +41,8 @@ const Dashboard: FC = () => {
     retrieveCart();
   }, [cart]);
 
+  useEffect(() => {}, [currentUser]);
   useEffect(() => {
-    console.log("current h and width", height, width);
-  }, [height, width]);
-
-  useEffect(() => {
-    console.log("user change", currentUser);
-  }, [currentUser]);
-  useEffect(() => {
-    console.log("selected category", selectedCategory);
     categoryChangeProducts();
   }, [selectedCategory]);
 
@@ -76,7 +68,7 @@ const Dashboard: FC = () => {
   const addToCart = async (productId: number) => {
     await commerce.cart
       .add(productId, 1)
-      .then((res: any) => console.log("added", res))
+      .then((res: any) => res)
       .catch((err: errorCase) => console.log("err happended", err));
   };
 
@@ -91,7 +83,6 @@ const Dashboard: FC = () => {
           if (!products.data) {
             fetchProducts();
           }
-          console.log("prods cat", products.data);
           setProducts(products.data);
         });
     } catch (err) {
@@ -104,7 +95,7 @@ const Dashboard: FC = () => {
   const signOut = async () => {
     await auth
       .signOut()
-      .then((res) => console.log("signed out", res))
+      .then((res) => res)
       .catch((err) => console.log("could not sign out", err));
   };
 
@@ -140,9 +131,7 @@ const Dashboard: FC = () => {
     <div className="mainCon">
       <div className="navbar" id="dashboardNavbar">
         <div className="navbarLeft">
-          <h3 className="branName">
-            Kamazon
-          </h3>
+          <h3 className="branName">Kamazon</h3>
         </div>
         <div className="navbarRight">
           <div className="cartIconCon">

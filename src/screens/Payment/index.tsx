@@ -29,14 +29,11 @@ const Payment = (props: Props) => {
       setCart(cart);
       setCheckoutTokenId(checkoutTokenId);
       setFormData(formData);
-      console.log(state);
     }
   }, [history.location.state]);
   useEffect(() => {}, [history.location.state]);
 
-  useEffect(() => {
-    console.log("current cart", cart);
-  }, [cart]);
+  useEffect(() => {}, [cart]);
 
   //funcs
 
@@ -110,7 +107,6 @@ const Payment = (props: Props) => {
       await commerce.checkout
         .capture(checkoutTokenId, newOrder)
         .then((order: any) => {
-          console.log("success", order);
           history.push("/orderconfirmation");
         })
         .catch((error: any) => {

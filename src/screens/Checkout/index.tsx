@@ -32,7 +32,6 @@ const Checkout = (props: Props) => {
   useEffect(() => {
     const cart = history.location.state.cart;
     if (cart) {
-      console.log("cart", cart);
       setCart(cart);
       generateCheckoutToken(cart.id);
     }
@@ -55,13 +54,11 @@ const Checkout = (props: Props) => {
 
   useEffect(() => {
     if (shippingCountry) {
-      console.log("country changed", shippingCountry);
       fetchSubdivisions(shippingCountry.value);
     }
   }, [shippingCountry]);
   useEffect(() => {
     if (shippingSubdivision) {
-      console.log("subdivision changed", shippingSubdivision);
       if (checkoutTokenId && shippingSubdivision) {
         fetchShippingOptions(
           checkoutTokenId,
@@ -71,16 +68,12 @@ const Checkout = (props: Props) => {
       }
     }
   }, [shippingSubdivision]);
-  useEffect(() => {
-    if (shippingOption) console.log("shippingOption", shippingOption);
-  }, [shippingOption]);
 
   //functions
   const generateCheckoutToken = async (cartId: string | number) => {
     await commerce.checkout
       .generateToken(cartId, { type: "cart" })
       .then((token: any) => {
-        console.log("token", token);
         setCheckoutTokenId(token.id);
       })
       .catch((error: any) => {
@@ -101,7 +94,6 @@ const Checkout = (props: Props) => {
             label: name,
           })
         );
-        console.log("array of countries ", structuredCountries);
         setShippingCountries(structuredCountries);
       })
       .catch((error: any) => {
@@ -124,7 +116,6 @@ const Checkout = (props: Props) => {
             label: name,
           })
         );
-        console.log("structuredSubdivisions", structuredSubdivisions);
         setShippingSubdivisions(structuredSubdivisions);
       })
       .catch((error: any) => {
@@ -146,7 +137,6 @@ const Checkout = (props: Props) => {
         // const shippingOption = options[0] || null;
         // console.log("option", shippingOption);
         // setShippingOption(shippingOption);
-        console.log("ship options", res);
         setShippingOptions(res);
         setShippingOption(res[0]);
       })
@@ -180,7 +170,6 @@ const Checkout = (props: Props) => {
     } catch (error) {
       console.log(error);
     } finally {
-      console.log(formInfo);
     }
   };
   return (
