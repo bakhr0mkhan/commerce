@@ -25,7 +25,6 @@ const Checkout = (props: Props) => {
   const [shippingSubdivision, setShippingSubdivision] = useState<any>();
   const [shippingOption, setShippingOption] = useState<any>();
   const [shippingOptions, setShippingOptions] = useState<any>();
-  const [formInput, setFormInput] = useState<any>();
 
   //effects
   useEffect(() => {
@@ -158,7 +157,7 @@ const Checkout = (props: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
   const onSubmit = (data: any) => {
     const formInfo = {
@@ -168,7 +167,6 @@ const Checkout = (props: Props) => {
       shippingOption,
     };
     try {
-      setFormInput(formInfo);
       history.push({
         pathname: "/payment",
         state: {

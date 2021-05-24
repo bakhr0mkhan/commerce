@@ -1,7 +1,7 @@
-import React, { useContext, FC } from "react";
+import React from "react";
 //@ts-ignore
 import { Route, Redirect } from "react-router-dom";
-import { useCommerceContext, useFirebaseContext } from "../../context/index";
+import { useFirebaseContext } from "../../context/index";
 
 //@ts-ignore
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {

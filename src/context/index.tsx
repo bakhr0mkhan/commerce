@@ -1,8 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+// @ts-ignore
 import Commerce from "@chec/commerce.js";
 
 import { auth } from "../firebase/index";
 
+// @ts-ignore
 const CommerceContext = createContext();
 
 const FirebaseContext = createContext(null);

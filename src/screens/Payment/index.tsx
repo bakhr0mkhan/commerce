@@ -30,7 +30,8 @@ const Payment = (props: Props) => {
       setFormData(formData);
       console.log(state);
     }
-  }, []);
+  }, [history.location.state]);
+  useEffect(() => {}, [history.location.state]);
 
   useEffect(() => {
     console.log("current cart", cart);
@@ -144,6 +145,7 @@ const Payment = (props: Props) => {
               >
                 <div className="productTop">
                   <img
+                    alt="product'sPhoto"
                     src={product?.media.source}
                     // style={{
                     //   width: 30,

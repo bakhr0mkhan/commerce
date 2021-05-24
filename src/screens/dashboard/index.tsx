@@ -25,7 +25,6 @@ const Dashboard: FC = () => {
 
   //states
   const [cart, setCart] = useState<any>();
-  const [categories, setCategories] = useState<any>();
   const [products, setProducts] = useState<any>();
   const [selectedCategory, setSelectedCategory] = useState(localCategories[0]);
   const [loading, setLoading] = useState(false);
@@ -194,11 +193,12 @@ const Dashboard: FC = () => {
                 className="categoryBtn"
                 style={{
                   backgroundColor:
-                    category == selectedCategory ? "#3b5998" : "white",
-                  color: category == selectedCategory ? "white" : "#3b5998",
+                    category === selectedCategory ? "#3b5998" : "white",
+                  color: category === selectedCategory ? "white" : "#3b5998",
                 }}
               >
                 <img
+                  alt="icon"
                   src={category.icon}
                   style={{
                     width: 15,
@@ -227,6 +227,7 @@ const Dashboard: FC = () => {
               >
                 <div className="productTop">
                   <img
+                    alt="product"
                     src={product.media.source}
                     // style={{
                     //   width: 30,
