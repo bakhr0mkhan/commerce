@@ -25,3 +25,32 @@
     font-size: 1.1rem;
   }
 }
+
+/* desktop */
+@media screen and (min-width: 768px) {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .orderSubTextCon {
+    margin: 4rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .orderSubText {
+    font-family: "Lato", sans-serif;
+    font-size: 1.5rem;
+  }
+  .backToDashboardBtn {
+    background-color: #3b5998;
+    color: white;
+    padding: 1rem 2rem;
+    border: 1px solid white;
+    border-radius: 2rem;
+    font-family: "Lato", sans-serif;
+    font-size: 1.1rem;
+  }
+}
