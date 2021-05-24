@@ -6,6 +6,8 @@ import { useCommerceContext } from "../../context";
 //@ts-ignore
 import Select from "react-select";
 import "./styles.css";
+import Lottie from "react-lottie";
+import paymentAnim from "../../assets/animations/payment.json";
 
 import { FaStripe } from "react-icons/fa";
 
@@ -198,6 +200,22 @@ const Checkout = (props: Props) => {
       </div>
 
       <div className="checkoutSubCon">
+        <div className="paymentAnimCon">
+          <Lottie
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: paymentAnim,
+              rendererSettings: {
+                preserveAspectRatio: "xMidYMid slice",
+              },
+            }}
+            height={200}
+            width={200}
+            isStopped={false}
+            isPaused={false}
+          />
+        </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="checkoutFormContainer"
@@ -265,7 +283,7 @@ const Checkout = (props: Props) => {
             options={shippingSubdivisions}
             onChange={(e: any) => setShippingSubdivision(e)}
           />
-          <div className="warningMsgContainer">
+          {/* <div className="warningMsgContainer">
             <h4 className="warningPaymentText">
               Warning! Since our website is in test mode test gateway for
               payment to be used
@@ -273,35 +291,35 @@ const Checkout = (props: Props) => {
             <h5 className="warningPaymentTextSub">
               Test card: 4242424242424242|04/24|242|42424
             </h5>
-          </div>
+          </div> */}
           <input
             {...register("cardNum", { required: true })}
-            placeholder="Card Number"
+            placeholder="Card Number | 4242 4242 4242 4242"
             className="input checkoutInput"
             id="checkoutInputId"
           />
           <input
             {...register("expMonth", { required: true })}
-            placeholder="Expiry Month"
+            placeholder="Expiry Month | 04 "
             className="input checkoutInput"
             id="checkoutInputId"
           />
           <input
             {...register("expYear", { required: true })}
-            placeholder="Expiry Year"
+            placeholder="Expiry Year | 24"
             className="input checkoutInput"
             id="checkoutInputId"
           />
           <input
             {...register("ccv", { required: true })}
-            placeholder="CCV"
+            placeholder="CCV | 242"
             className="input checkoutInput"
             id="checkoutInputId"
           />
           <input
             {...register("billingPostalZipcode", { required: true })}
-            placeholder="Billing Postal Zip code"
-            className="input checkoutInput"
+            placeholder="Billing Postal Zip code | 24242"
+            className="input checkoutInput checkoutDefectInput"
             id="checkoutInputId"
           />
           <input

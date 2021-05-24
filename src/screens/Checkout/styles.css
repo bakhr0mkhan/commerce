@@ -50,4 +50,71 @@
     font-family: "Lato", sans-serif;
     font-weight: 400;
   }
+  .paymentAnimCon {
+    display: none;
+  }
+}
+/* desktop */
+@media screen and (min-width: 768px) {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  .checkoutMainCon {
+    width: 100vw;
+    height: 100vh;
+  }
+  .checkoutFormContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 80%;
+  }
+  .checkoutSubCon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    width: 100%;
+    height: 100%;
+  }
+
+  .checkoutDefectInput {
+    align-self: center;
+    justify-self: center;
+  }
+
+  #checkoutInputId {
+    margin: 0.5rem 0;
+  }
+  .selectPackageComponent {
+    width: 42%;
+    margin: 0.5rem 0;
+    border-color: var(--primary);
+    border-radius: 1rem;
+  }
+  #checkoutSubmitBtn {
+    background-color: var(--primary);
+    color: white;
+    font-family: "Lato", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .warningMsgContainer {
+    display: none;
+  }
+
+  .input {
+    border: 1px solid lightgrey;
+    border-radius: 1rem;
+    padding: 0 1rem;
+    background-color: white;
+    width: 40%;
+    height: 2rem;
+    outline: none;
+  }
 }
