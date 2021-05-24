@@ -38,16 +38,23 @@ const Login = (props: Props) => {
 
   const signInWithGoogle = async () => {
     const providerGoogle = new firebase.auth.GoogleAuthProvider();
-    auth
-      .signInWithPopup(providerGoogle)
-      .then((res) => {
-        history.push("/");
-        console.log("sucess, ", res);
-      })
-      .catch((err) => {
-        history.push("/register");
-        console.log("error", err);
-      });
+    setLoading(true);
+    try {
+      auth
+        .signInWithPopup(providerGoogle)
+        .then((res) => {
+          history.push("/");
+          console.log("sucess, ", res);
+        })
+        .catch((err) => {
+          history.push("/register");
+          console.log("error", err);
+        });
+    } catch (err) {
+      history.push("/login");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const {
@@ -115,11 +122,19 @@ const Login = (props: Props) => {
               className="passwordInput input"
               placeholder="Password"
             />
-            <input type="submit" className="submitBtn " value="Sign in" />
-            <button className="btns" onClick={() => signInWithGoogle()}>
+            <input
+              type="submit"
+              className="submitBtn "
+              value="Sign in"
+              style={{
+                backgroundColor: loading ? "white" : "#3b5998",
+                color: loading ? "black" : "white",
+              }}
+            />
+            {/* <button className="btns" onClick={() => signInWithGoogle()}>
               <img src={GoogleIcon} className="icon" alt="google" />
               Continue with Google{" "}
-            </button>
+            </button> */}
             <button
               className="btns"
               id="register"

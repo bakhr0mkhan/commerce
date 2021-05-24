@@ -96,10 +96,10 @@ const Register = (props: Props) => {
               className="submitBtn "
               value="Create an account"
             />
-            <button className="btns" onClick={() => signInWithGoogle()}>
+            {/* <button className="btns" onClick={() => signInWithGoogle()}>
               <img src={GoogleIcon} className="icon" alt="google" />
               Continue with Google{" "}
-            </button>
+            </button> */}
             <button
               className="btns"
               id="register"
