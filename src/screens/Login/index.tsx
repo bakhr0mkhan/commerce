@@ -13,11 +13,14 @@ import loginScreen from "../../assets/animations/loginScreen.json";
 import manLogin from "../../assets/animations/manLogin.json";
 import loginLoading from "../../assets/animations/loginLoading.json";
 
+import useWindowDimensions from "../../hooks/useWindowDimensions";
+
 interface Props {}
 
 const Login = (props: Props) => {
   const auth = firebase.auth();
   const history = useHistory();
+  const { width, height } = useWindowDimensions();
   const [loading, setLoading] = useState(false);
 
   const signInWithEmail = async (email: string, password: string) => {
@@ -86,8 +89,8 @@ const Login = (props: Props) => {
                 preserveAspectRatio: "xMidYMid slice",
               },
             }}
-            height={200}
-            width={200}
+            height={width < 500 ? 200 : 400}
+            width={width < 500 ? 200 : 400}
             isStopped={false}
             isPaused={false}
           />
@@ -115,7 +118,7 @@ const Login = (props: Props) => {
             <input type="submit" className="submitBtn " value="Sign in" />
             <button className="btns" onClick={() => signInWithGoogle()}>
               <img src={GoogleIcon} className="icon" alt="google" />
-              Sign in with google{" "}
+              Continue with Google{" "}
             </button>
             <button
               className="btns"
@@ -138,8 +141,8 @@ const Login = (props: Props) => {
                 preserveAspectRatio: "xMidYMid slice",
               },
             }}
-            height={200}
-            width={200}
+            height={width < 500 ? 200 : 400}
+            width={width < 500 ? 200 : 400}
             isStopped={false}
             isPaused={false}
           />

@@ -98,7 +98,7 @@ const Register = (props: Props) => {
             />
             <button className="btns" onClick={() => signInWithGoogle()}>
               <img src={GoogleIcon} className="icon" alt="google" />
-              Sign in with google{" "}
+              Continue with Google{" "}
             </button>
             <button
               className="btns"

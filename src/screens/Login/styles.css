@@ -101,3 +101,113 @@
   }
   /* end of login main container */
 }
+/* desktop */
+
+@media screen and (min-width: 768px) {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+  .link {
+    text-decoration: none;
+    color: black;
+  }
+
+  .loginMainCon {
+    border: 1px solid blue;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .loginSubCon {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .loginFormCon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 2;
+  }
+  .form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .welcomeMsg {
+    margin: 0;
+    font-family: "Lato", sans-serif;
+  }
+  .brandNameMsg {
+    margin: 0.7rem 0;
+    font-family: "Pattaya", sans-serif;
+  }
+  .input {
+    width: 70%;
+    height: 2rem;
+    border-radius: 1rem;
+    border: 1px solid var(--primary);
+    padding: 0 1rem;
+    margin: 1rem 0;
+    outline: none;
+  }
+  .submitBtn {
+    border: 1px solid var(--primary);
+    background-color: var(--primary);
+    height: 2rem;
+    width: 45%;
+    border-radius: 1rem;
+    font-family: "Lato", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    outline: none;
+  }
+  .btns {
+    margin: 2rem 0 0 0;
+    width: 45%;
+    height: 2rem;
+    border: 1px solid var(--primary);
+    background-color: white;
+    font-family: "Lato", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    outline: none;
+    color: var(--primary);
+  }
+
+  #register {
+    margin: 1rem 0;
+    color: white;
+    background-color: var(--primary);
+  }
+  .icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  .sidebar {
+    height: 10rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  /* end of login main container */
+}

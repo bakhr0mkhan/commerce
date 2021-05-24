@@ -141,7 +141,7 @@ const Dashboard: FC = () => {
       <div className="navbar" id="dashboardNavbar">
         <div className="navbarLeft">
           <h3 className="branName">
-            Kamazon {width} :{height}
+            Kamazon
           </h3>
         </div>
         <div className="navbarRight">

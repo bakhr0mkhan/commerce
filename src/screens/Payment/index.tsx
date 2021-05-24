@@ -19,6 +19,7 @@ const Payment = (props: Props) => {
   const [checkoutTokenId, setCheckoutTokenId] = useState("");
   const [cart, setCart] = useState<any>();
   const [formData, setFormData] = useState<any>();
+  const [loading, setLoading] = useState(false);
 
   //effects
   useEffect(() => {
@@ -104,6 +105,7 @@ const Payment = (props: Props) => {
     checkoutTokenId: string,
     newOrder: any
   ) => {
+    setLoading(true);
     try {
       await commerce.checkout
         .capture(checkoutTokenId, newOrder)
@@ -118,6 +120,7 @@ const Payment = (props: Props) => {
     } catch (err) {
       history.push("/cart");
     } finally {
+      setLoading(false);
     }
 
     // console.log(checkoutTokenId, newOrder);
@@ -132,6 +135,11 @@ const Payment = (props: Props) => {
           <button
             className="confirmOrderBtn"
             onClick={(e) => handleCaptureCheckout(e)}
+            disabled={loading}
+            style={{
+              backgroundColor: loading ? "rgb(241, 241, 241)" : "#3b5998",
+              color: loading ? "black" : "white",
+            }}
           >
             Confirm
           </button>
