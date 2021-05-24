@@ -233,10 +233,12 @@ const Dashboard: FC = () => {
                       : width / 3,
                   height:
                     height < 850 && height > 600
-                      ? height / 4
+                      ? height / 3
                       : height > 1300
                       ? height / 5
-                      : height / 3,
+                      : height < 850 && height > 800
+                      ? height / 4.5
+                      : height / 3.5,
                 }}
               >
                 <div className="productTop">
