@@ -128,7 +128,14 @@ const Payment = (props: Props) => {
         <div className="navbarLeft" onClick={() => history.push("/")}>
           <h3 className="branName">Kamazon</h3>
         </div>
-        <div className="navbarRight"></div>
+        <div className="navbarRight">
+          <button
+            className="confirmOrderBtn"
+            onClick={(e) => handleCaptureCheckout(e)}
+          >
+            Confirm
+          </button>
+        </div>
       </div>
 
       <div className="productsContainer">
@@ -139,8 +146,20 @@ const Payment = (props: Props) => {
                 className="productCon"
                 key={product?.id}
                 style={{
-                  width: width / 2.6,
-                  height: height / 4,
+                  width:
+                    width < 600
+                      ? width / 2.6
+                      : width > 1000
+                      ? width / 4
+                      : width / 3,
+                  height:
+                    height < 850 && height > 800
+                      ? height / 3
+                      : height > 1300
+                      ? height / 5
+                      : height < 850 && height > 600
+                      ? height / 4.5
+                      : height / 3.5,
                 }}
               >
                 <div className="productTop">
@@ -176,14 +195,7 @@ const Payment = (props: Props) => {
         </div>
       </div>
 
-      <div className="confirmOrderTab">
-        <button
-          className="confirmOrderBtn"
-          onClick={(e) => handleCaptureCheckout(e)}
-        >
-          Confirm Order
-        </button>
-      </div>
+      <div className="confirmOrderTab"></div>
     </div>
   );
 };
