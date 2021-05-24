@@ -144,8 +144,20 @@ const Cart = () => {
                 className="productCon"
                 key={product?.id}
                 style={{
-                  width: width / 2.6,
-                  height: height / 4,
+                  width:
+                    width < 600
+                      ? width / 2.6
+                      : width > 1000
+                      ? width / 4
+                      : width / 3,
+                  height:
+                    height < 850 && height > 767
+                      ? height / 3
+                      : height < 768
+                      ? height / 4
+                      : height > 1300
+                      ? height / 5
+                      : height / 3.5,
                 }}
               >
                 <div className="productTop">

@@ -17,7 +17,7 @@
   .cartMainCon {
     width: 100vw;
     height: 100%;
-    border: 1px solid pink;
+    position: relative;
   }
   #cartproductsContainerSub {
     padding-bottom: 5rem;
@@ -28,7 +28,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    border: 1px solid black;
     width: 100%;
     height: 3rem;
     display: flex;
@@ -51,7 +50,69 @@
   .subtotalText {
     font-family: "Lato", sans-serif;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
+  }
+  .goCheckoutBtn {
+    border: none;
+    outline: none;
+    background-color: var(--primary);
+    color: white;
+    font-family: "Lato", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 1.2rem;
+    margin: 0 auto;
+  }
+}
+/* desktop */
+
+@media screen and (min-width: 768px) {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  #removeFromCartBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .cartMainCon {
+    width: 100vw;
+    height: 100%;
+  }
+  #cartproductsContainerSub {
+    padding-bottom: 5rem;
+  }
+
+  .cartBottomTab {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    z-index: 10;
+  }
+  .cartBottomTabLeft {
+    padding: 0 2rem;
+  }
+  .cartBottomTabRight {
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+  }
+  .subtotalText {
+    font-family: "Lato", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
   }
   .goCheckoutBtn {
     border: none;
